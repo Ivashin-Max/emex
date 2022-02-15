@@ -11,9 +11,9 @@ export const itemsReducer = (state = initialState, action: ItemAction): ItemsSta
     case ItemActionTypes.FETCH_ITEMS:
       return { loading: true, error: null, items: [] }
     case ItemActionTypes.FETCH_ITEMS_SUCCESS:
-      return { loading: true, error: null, items: action.payload }
+      return { loading: false, error: null, items: action.payload }
     case ItemActionTypes.FETCH_ITEMS_ERROR:
-      return { loading: true, error: action.payload, items: [] }
+      return { loading: false, error: action.payload, items: [] }
     default:
       return state
   }
