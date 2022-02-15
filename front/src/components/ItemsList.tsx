@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
+import { NavLink } from "react-router-dom"
 import { useTypedSelector } from "../hook/useTypedSelector"
 import { fetchItems } from "../store/actions/fetchItems"
 
@@ -23,7 +24,9 @@ const ItemsList: React.FC = () => {
 
   return (
     <div>
-      {state.items.map((item) => <div key={item.id}>{item.name}</div>
+      <NavLink to={"/"}> </NavLink >
+      {state.items.map((item) =>
+        <div key={item.id}>{item.name}</div>
       )}
     </div>
   )
