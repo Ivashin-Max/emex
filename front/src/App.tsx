@@ -13,12 +13,17 @@ function App() {
     <div className="App">
       <CssBaseline />
       <Header />
-
+      <header>
+        <Link to="/">Главная</Link>
+        <Link to="/catalog">Каталог</Link>
+        <Link to="/basket">Корзина</Link>
+      </header>
 
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/catalog" element={<ItemList />} />
         <Route path="/basket" element={<Basket />} />
+        <Route path="/product" element={<Basket />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 
