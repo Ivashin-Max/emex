@@ -13,11 +13,7 @@ function App() {
     <div className="App">
       <CssBaseline />
       <Header />
-      <header>
-        <Link to="/">Главная</Link>
-        <Link to="/catalog">Каталог</Link>
-        <Link to="/basket">Корзина</Link>
-      </header>
+
 
       <Routes>
         <Route path="/" element={<HomePage />} />
