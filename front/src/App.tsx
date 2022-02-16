@@ -1,10 +1,10 @@
 import React from 'react';
 import ItemsList from "./components/ItemsList"
 import { Routes, Route, Link } from 'react-router-dom';
-import Basket from './components/Basket'
+import Basket from './components/pages/Basket'
 import ItemList from './components/ItemsList'
-import HomePage from './components/HomePage'
-import NotFound from './components/NotFound'
+import HomePage from './components/pages/HomePage'
+import NotFound from './components/pages/NotFound'
 
 function App() {
   return (
