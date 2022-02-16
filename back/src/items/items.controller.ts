@@ -8,7 +8,7 @@ export interface Iitem {
 }
 
 @Controller('items')
-export class StudentsController {
+export class ItemsController {
   public items: Iitem[] = [
     {
       id: 1,
