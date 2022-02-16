@@ -5,15 +5,15 @@ import Basket from './components/pages/Basket'
 import ItemList from './components/ItemsList'
 import HomePage from './components/pages/HomePage'
 import NotFound from './components/pages/NotFound'
+import Header from './components/Header'
+import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
   return (
     <div className="App">
-      <header>
-        <Link to="/">Главная</Link>
-        <Link to="/catalog">Каталог</Link>
-        <Link to="/basket">Корзина</Link>
-      </header>
+      <CssBaseline />
+      <Header />
+
 
       <Routes>
         <Route path="/" element={<HomePage />} />
