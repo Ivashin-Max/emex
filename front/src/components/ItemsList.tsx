@@ -24,7 +24,6 @@ const ItemsList: React.FC = () => {
 
   return (
     <div>
-      <NavLink to={"/"}> </NavLink >
       {state.items.map((item) =>
         <div key={item.id}>{item.name}</div>
       )}
