@@ -1,20 +1,26 @@
-import { useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { Container, Grid, Button, Box } from '@mui/material';
-import getExactAmount from '../../queries/getExactAmount';
+import EXACT_AMOUNT from '../../queries/EXACT_AMOUNT';
 import { ItemCard } from '../../types/items';
 import MultiActionAreaCard from '../ItemCard'
 import { useTypedSelector } from "../../hook/useTypedSelector"
 import { BasketItem } from '../../types/basket';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import React from 'react';
+import { useSelector } from "react-redux";
 
 const Catalog = () => {
-  const { loading, error, data } = useQuery(getExactAmount);
-  const state = useTypedSelector(state => state.item)
+
+  const [currentAmount, setCurrentAmount] = React.useState(3)
+  const { loading, error, data } = useQuery(EXACT_AMOUNT, { variables: { amount: currentAmount } });
+  const state = useTypedSelector(state => state.item);
+
   console.log('data', data);
   console.log('state', state);
   const handleMoreClick = () => {
-    console.log('more');
-
+    console.log('currentAmount', currentAmount);
+    setCurrentAmount(currentAmount + 3);
+    console.log('nextAmount', currentAmount);
   }
   if (loading) return (
     <h1>Gruzim</h1>
