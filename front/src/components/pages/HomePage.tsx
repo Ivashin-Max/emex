@@ -1,10 +1,9 @@
 
-import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { AppBar, Box, Button, CardActionArea, CardActions, Container, createTheme, CssBaseline, Grid, Stack, ThemeProvider, Toolbar } from '@mui/material';
+import { CardActionArea, Container, createTheme, CssBaseline, Grid, ThemeProvider } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
@@ -23,7 +22,7 @@ const HomePage = () => {
               >
                 <CardActionArea
                   component={Link}
-                  to='/catalog?name=100'>
+                  to='/catalog?name=tyre'>
                   <CardMedia
                     component="img"
                     height="250"
@@ -43,7 +42,7 @@ const HomePage = () => {
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea
                   component={Link}
-                  to='/catalog?name=200'>
+                  to='/catalog?name=disk'>
                   <CardMedia
                     component="img"
                     height="250"
@@ -62,7 +61,7 @@ const HomePage = () => {
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea
                   component={Link}
-                  to='/catalog?name=300'>
+                  to='/catalog?name=oil'>
                   <CardMedia
                     component="img"
                     height="250"

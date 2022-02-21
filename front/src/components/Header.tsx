@@ -16,6 +16,7 @@ import { Badge } from '@mui/material';
 import { useTypedSelector } from '../hook/useTypedSelector';
 
 
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -54,6 +55,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchAppBar() {
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+
   const [searchInput, setSearchInput] = React.useState('');
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -67,7 +70,7 @@ export default function SearchAppBar() {
     console.log(state.items.length);
 
   };
-  const state = useTypedSelector(state => state.item)
+  const state = useTypedSelector(state => state.basket)
 
   return (
     <Box sx={{ flexGrow: 1 }}>
