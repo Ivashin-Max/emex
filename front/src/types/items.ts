@@ -1,11 +1,22 @@
 
 
+export interface ItemCard {
+  id: number;
+  amount: string;
+  brand: string;
+  name: string;
+}
+
+
+
 
 export interface ItemsState {
   items: any[];
   loading: boolean;
   error: null | string;
 }
+
+
 
 export enum ItemActionTypes {
   FETCH_ITEMS = "FETCH_ITEMS",
