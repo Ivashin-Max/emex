@@ -13,8 +13,9 @@ export default function MultiActionAreaCard(props: any) {
   const state = useTypedSelector(state => state)
   const dispatch = useDispatch();
   const handleClick = () => {
-    console.log('click on', props.item.id)
+    console.log('click on', props.item)
     console.log('state', state)
+
     dispatch(addToBasket(props.item))
   }
 
@@ -37,16 +38,21 @@ export default function MultiActionAreaCard(props: any) {
         </CardContent>
       </CardActionArea>
       <CardActions>
+
         <IconButton
           size="large"
           edge="start"
           color="inherit"
           aria-label="open drawer"
-          sx={{ mr: 2 }}
+          sx={{ ml: 0.1 }}
           onClick={handleClick}
         >
+
           <AddShoppingCartIcon color="info" />
         </IconButton>
+        <Typography gutterBottom variant="body2" color="text.secondary" >
+          {props.item.price}
+        </Typography>
       </CardActions>
     </Card>
   );

@@ -1,15 +1,17 @@
 import { gql } from '@apollo/client';
 
-const getAll = gql`
+const getExactAmount = gql`
 query {
 getExactAmount(amount:3){
   id
   amount
   brand
   name
+  serial
+  price
 }
 }
 `;
 
-export default getAll;
+export default getExactAmount;
 
