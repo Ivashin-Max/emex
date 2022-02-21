@@ -17,6 +17,7 @@ type tyres {
 type Query {
   getAllTyres: [tyres!]!
   getSerial(serial: String!): [tyres!]!
+  getExactAmount(amount: Float!): [tyres!]!
   findOneTyre(id: Float!): tyres!
 }
 

@@ -22,6 +22,10 @@ export class TyreService {
     return await this.tyreRepo.find({ where: { serial: serial } });
   }
 
+  async getExactAmount(amount: number) {
+    return await this.tyreRepo.find({ take: amount });
+  }
+
   async createTyre(tyre: TyreCreateDTO) {
     const currentTyre = this.tyreRepo.create(tyre);
     return this.tyreRepo.save(currentTyre);
