@@ -6,6 +6,7 @@ type tyres {
   id: ID!
   amount: String!
   serial: String!
+  price: String!
   brand: String!
   name: String!
   width: String!

@@ -15,6 +15,9 @@ export class Tyre {
   serial: string;
   @Field()
   @Column()
+  price: string;
+  @Field()
+  @Column()
   brand: string;
   @Field()
   @Column()
