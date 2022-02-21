@@ -12,6 +12,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
+import { Badge } from '@mui/material';
+import { useTypedSelector } from '../hook/useTypedSelector';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,8 +63,11 @@ export default function SearchAppBar() {
     setAnchorEl(null);
   };
   const handleSearch = () => {
-    console.log(searchInput)
+    console.log(searchInput);
+    console.log(state.items.length);
+
   };
+  const state = useTypedSelector(state => state.item)
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -149,7 +155,11 @@ export default function SearchAppBar() {
             component={Link}
             to='/basket'
           >
-            <ShoppingCartIcon />
+
+            <Badge badgeContent={state.items.length} color="error">
+              <ShoppingCartIcon />
+            </Badge>
+
           </IconButton>
         </Toolbar>
       </AppBar>
