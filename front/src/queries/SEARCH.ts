@@ -1,13 +1,14 @@
 import { gql } from '@apollo/client';
 
 const SEARCH_BAR = gql`
-query getSerial{
-  getSerial(serial: "Toyota") {
+query GET_SEARCH($searching: String!){
+  getSerial(serial: $searching) {
     id
     serial
   }
 }
 `;
+
 
 export default SEARCH_BAR;
 

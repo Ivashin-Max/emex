@@ -14,7 +14,9 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import { Badge } from '@mui/material';
 import { useTypedSelector } from '../hook/useTypedSelector';
-
+import { useQuery } from '@apollo/client';
+import EXACT_AMOUNT from '../queries/EXACT_AMOUNT';
+import SEARCH_BAR from '../queries/SEARCH';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -55,9 +57,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchAppBar() {
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-
   const [searchInput, setSearchInput] = React.useState('');
+  const { loading, error, data } = useQuery(SEARCH_BAR, { variables: { searching: searchInput } });
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -67,9 +68,9 @@ export default function SearchAppBar() {
   };
   const handleSearch = () => {
     console.log(searchInput);
-    console.log(state.items.length);
-
+    console.log('data', data);
   };
+
   const state = useTypedSelector(state => state.basket)
 
   return (
