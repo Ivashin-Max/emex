@@ -10,6 +10,10 @@ import { TyreModule } from './tyre/tyre.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      cors: {
+        origin: 'http://localhost:3001',
+        credentials: true,
+      },
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
