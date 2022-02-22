@@ -22,11 +22,11 @@ const HomePage = () => {
               >
                 <CardActionArea
                   component={Link}
-                  to='/catalog?name=tyre'>
+                  to='/catalog?name=tyres'>
                   <CardMedia
                     component="img"
                     height="250"
-                    image={require('../../static/img/tyres.jpeg')}
+                    image={require('../../static/img/tyres.jpg')}
                     alt="tyres"
 
                   />
@@ -42,11 +42,11 @@ const HomePage = () => {
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea
                   component={Link}
-                  to='/catalog?name=disk'>
+                  to='/catalog?name=disks'>
                   <CardMedia
                     component="img"
                     height="250"
-                    image={require('../../static/img/tyres.jpeg')}
+                    image={require('../../static/img/disks.jpg')}
                     alt="tyres"
                   />
                   <CardContent>
@@ -61,11 +61,11 @@ const HomePage = () => {
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea
                   component={Link}
-                  to='/catalog?name=oil'>
+                  to='/catalog?name=oils'>
                   <CardMedia
                     component="img"
                     height="250"
-                    image={require('../../static/img/tyres.jpeg')}
+                    image={require('../../static/img/oils.jpg')}
                     alt="tyres"
                   />
                   <CardContent>
