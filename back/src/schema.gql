@@ -4,9 +4,9 @@
 
 type tyres {
   id: ID!
-  amount: String!
-  serial: String!
-  price: String!
+  amount: Float!
+  serial: Float!
+  price: Float!
   brand: String!
   name: String!
   width: String!
@@ -28,8 +28,8 @@ type Mutation {
 }
 
 input TyreCreateDTO {
-  amount: String!
-  serial: String!
+  amount: Float!
+  serial: Float!
   brand: String!
   name: String!
   width: String!
@@ -40,5 +40,5 @@ input TyreCreateDTO {
 
 input TyreUpdateDTO {
   id: ID!
-  amount: String!
+  amount: Float!
 }

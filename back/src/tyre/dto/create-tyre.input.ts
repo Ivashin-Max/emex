@@ -3,9 +3,9 @@ import { Field, InputType } from '@nestjs/graphql';
 @InputType()
 export class TyreCreateDTO {
   @Field()
-  amount: string;
+  amount: number;
   @Field()
-  serial: string;
+  serial: number;
   @Field()
   brand: string;
   @Field()

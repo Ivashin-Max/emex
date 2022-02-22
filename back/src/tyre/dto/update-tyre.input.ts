@@ -5,5 +5,5 @@ export class TyreUpdateDTO {
   @Field(() => ID)
   id: number;
   @Field()
-  amount: string;
+  amount: number;
 }

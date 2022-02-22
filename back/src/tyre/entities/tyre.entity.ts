@@ -9,13 +9,13 @@ export class Tyre {
   id: number;
   @Field()
   @Column()
-  amount: string;
+  amount: number;
   @Field()
   @Column()
-  serial: string;
+  serial: number;
   @Field()
   @Column()
-  price: string;
+  price: number;
   @Field()
   @Column()
   brand: string;
