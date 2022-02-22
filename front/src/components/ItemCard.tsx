@@ -7,25 +7,28 @@ import { Button, CardActionArea, CardActions, IconButton } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useTypedSelector } from "../hook/useTypedSelector"
 import { useDispatch } from 'react-redux';
-import { addToBasket } from '../store/actions/addToBasket';
+import { changeBasket } from '../store/actions/changeBasket';
+import { useLocation } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export default function MultiActionAreaCard(props: any) {
   const state = useTypedSelector(state => state)
   const dispatch = useDispatch();
   const handleClick = () => {
-    console.log('click on', props.item)
-    console.log('state', state)
-
-    dispatch(addToBasket(props.item))
+    dispatch(changeBasket(props.item, '+'))
   }
+  const linkToProduct = `/product?id=${props.item.id}`;
 
   return (
     <Card sx={{ maxWidth: 245 }}>
-      <CardActionArea>
+      <CardActionArea
+        component={Link}
+        to={linkToProduct}
+      >
         <CardMedia
           component="img"
           height="140"
-          image={require('../static/img/tyres.jpeg')}
+          image={require(`../static/img/${props.img}.jpg`)}
           alt="green iguana"
         />
         <CardContent>
