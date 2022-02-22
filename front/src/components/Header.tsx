@@ -77,7 +77,6 @@ export default function SearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-
           <IconButton
             size="large"
             edge="start"
@@ -87,8 +86,6 @@ export default function SearchAppBar() {
             component={Link}
             to='/'
           >
-
-
             <HomeIcon />
           </IconButton>
           <IconButton
@@ -113,23 +110,23 @@ export default function SearchAppBar() {
             <MenuItem
               onClick={handleClose}
               component={Link}
-              to='/catalog?name=100'
+              to='/catalog?name=tyres'
             >
-              Profile
+              Шины
             </MenuItem>
             <MenuItem
               onClick={handleClose}
               component={Link}
-              to='/catalog?name=200'
+              to='/catalog?name=disks'
             >
-              My account
+              Диски
             </MenuItem>
             <MenuItem
               onClick={handleClose}
               component={Link}
-              to='/catalog?name=300'
+              to='/catalog?name=oils'
             >
-              Logout
+              Масла
             </MenuItem>
           </Menu>
 
@@ -139,17 +136,18 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
               onChange={event => setSearchInput(event.target.value)}
             />
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="search"
+              sx={{ ml: 1 }}
+              onClick={handleSearch}
+            >
+              <SearchIcon />
+            </IconButton>
           </Search>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="search"
-            sx={{ ml: 1 }}
-            onClick={handleSearch}
-          >
-            <SearchIcon />
-          </IconButton>
+
           <IconButton
             size="large"
             edge="start"
@@ -160,7 +158,7 @@ export default function SearchAppBar() {
             to='/basket'
           >
 
-            <Badge badgeContent={state.items.length} color="error">
+            <Badge badgeContent={state.basketAmount} color="error">
               <ShoppingCartIcon />
             </Badge>
 
