@@ -1,17 +1,48 @@
-import { BasketState, BasketAction, BasketActionTypes } from "../../types/basket"
+import { BasketState, BasketAction, BasketActionTypes, BasketItem } from "../../types/basket"
 
 const initialState: BasketState = {
   items: [],
+  basketAmount: 0,
+}
+
+const changeBasketAmount = (state: BasketState, id: string, operation: string): BasketItem[] => {
+  let index = -1;
+  for (let i = 0; i < state.items.length; i++) {
+    const item = state.items[i];
+    if (id === item.id) {
+      index = i
+      break
+    }
+  }
+  const newArray = [...state.items];
+  if (operation === '+') newArray[index].basketAmount = newArray[index].basketAmount + 1;
+  if (operation === '-') {
+    newArray[index].basketAmount = newArray[index].basketAmount - 1;
+  }
+  return newArray
 }
 
 export const basketReducer = (state = initialState, action: BasketAction): BasketState => {
   switch (action.type) {
     case BasketActionTypes.ADD_ITEM:
-      return { items: [...state.items, action.payload] }
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+        basketAmount: state.basketAmount + 1,
+      }
     case BasketActionTypes.CHANGE_AMOUNT:
-      return { items: [] }
+      console.log(`CHANGE_AMOUNT, operation: ${action.payload.operation}`);
+      return {
+        ...state,
+        items: changeBasketAmount(state, action.payload.id, action.payload.operation),
+        basketAmount: action.payload.operation === '+' ? state.basketAmount + 1 : state.basketAmount - 1
+      }
     case BasketActionTypes.REMOVE_ITEM:
-      return { items: [] }
+      return {
+        ...state,
+        items: [],
+        basketAmount: state.basketAmount - 1
+      }
     default:
       return state
   }

@@ -1,21 +1,22 @@
 export interface BasketItem {
-  id: number;
+  id: string;
   amount: string;
   brand: string;
   name: string;
   serial: string;
-  basketAmount: string;
+  basketAmount: number;
   price: number;
 }
 
 export interface BasketState {
   items: BasketItem[];
+  basketAmount: number;
 }
 
 export enum BasketActionTypes {
   ADD_ITEM = "ADD_ITEM",
   REMOVE_ITEM = "REMOVE_ITEM",
-  CHANGE_AMOUNT = "CHANGE_AMOUNT"
+  CHANGE_AMOUNT = "CHANGE_AMOUNT",
 }
 
 
@@ -27,9 +28,14 @@ interface RemoveItemAction {
   type: BasketActionTypes.REMOVE_ITEM;
   payload: any[]
 }
+
+export interface ChangeAmountPayload {
+  operation: string,
+  id: string
+}
 interface ChangeAmountAction {
   type: BasketActionTypes.CHANGE_AMOUNT;
-  payload: string
+  payload: ChangeAmountPayload;
 }
 
 
