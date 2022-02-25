@@ -14,8 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import { Badge } from '@mui/material';
 import { useTypedSelector } from '../hook/useTypedSelector';
-import { useQuery } from '@apollo/client';
-import EXACT_AMOUNT from '../queries/EXACT_AMOUNT';
+import { useQuery, useLazyQuery } from '@apollo/client';
 import SEARCH_BAR from '../queries/SEARCH';
 
 
@@ -57,8 +56,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchAppBar() {
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [searchInput, setSearchInput] = React.useState('');
-  const { loading, error, data } = useQuery(SEARCH_BAR, { variables: { searching: searchInput } });
+  const [searchInput, setSearchInput] = React.useState(0);
+
+  const [handleSearch, { loading, error, data }] = useLazyQuery(SEARCH_BAR)
+
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -66,10 +68,7 @@ export default function SearchAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleSearch = () => {
-    console.log(searchInput);
-    console.log('data', data);
-  };
+
 
   const state = useTypedSelector(state => state.basket)
 
@@ -134,20 +133,29 @@ export default function SearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              onChange={event => setSearchInput(event.target.value)}
+              onChange={event => setSearchInput(+event.target.value)}
             />
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="search"
-              sx={{ ml: 1 }}
-              onClick={handleSearch}
-            >
-              <SearchIcon />
-            </IconButton>
-          </Search>
 
+          </Search>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="search"
+            sx={{ ml: 1 }}
+            onClick={
+              () => {
+                handleSearch(
+                  {
+                    variables: {
+                      searching: searchInput,
+                    },
+                  }
+                )
+              }}
+          >
+            <SearchIcon />
+          </IconButton>
           <IconButton
             size="large"
             edge="start"

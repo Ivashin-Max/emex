@@ -11,6 +11,7 @@ import { changeBasket } from '../store/actions/changeBasket';
 import { useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
+
 export default function MultiActionAreaCard(props: any) {
   const state = useTypedSelector(state => state)
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export default function MultiActionAreaCard(props: any) {
   const linkToProduct = `/product?id=${props.item.id}`;
 
   return (
-    <Card sx={{ maxWidth: 245 }}>
+    <Card sx={{ maxWidth: 220 }}>
       <CardActionArea
         component={Link}
         to={linkToProduct}
@@ -54,8 +55,9 @@ export default function MultiActionAreaCard(props: any) {
           <AddShoppingCartIcon color="info" />
         </IconButton>
         <Typography gutterBottom variant="body2" color="text.secondary" >
-          {props.item.price}
+          {props.item.price} {String.fromCharCode(0x20BD)}
         </Typography>
+
       </CardActions>
     </Card>
   );

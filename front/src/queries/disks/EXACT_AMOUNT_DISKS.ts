@@ -1,17 +1,16 @@
 import { gql } from '@apollo/client';
 
-const EXACT_AMOUNT = gql`
+const EXACT_AMOUNT_DISKS = gql`
 query ($amount: Float!){
-getExactAmount(amount: $amount){
+getExactAmountDisks(amount: $amount){
   id
   brand
   amount
-  name
   serial
   price
 }
 }
 `;
 
-export default EXACT_AMOUNT;
+export default EXACT_AMOUNT_DISKS;
 

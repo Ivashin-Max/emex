@@ -7,8 +7,8 @@ query {
   brand
   amount
   name
-    price
-}
+  price
+  }
 }
 `;
 

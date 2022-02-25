@@ -10,8 +10,8 @@ import { CardActionArea, CardActions, IconButton } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import GET_ONE_BY_ID from '../../queries/GET_ONE_BY_ID';
-import { Product } from '../../types/product'
+import GET_ONE_BY_ID from '../../queries/tyres/GET_ONE_BY_ID';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

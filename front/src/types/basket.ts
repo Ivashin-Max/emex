@@ -1,6 +1,6 @@
 export interface BasketItem {
   id: string;
-  amount: string;
+  amount: number;
   brand: string;
   name: string;
   serial: string;

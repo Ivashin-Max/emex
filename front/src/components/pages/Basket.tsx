@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 import { changeBasket } from '../../store/actions/changeBasket';
 import { BasketItem } from '../../types/basket';
 import Modal from '../Modal';
-
+import BasketChange from '../BasketChange';
 
 export default function Basket() {
   const basketItems = useTypedSelector(state => state.basket.items)
@@ -34,17 +34,6 @@ export default function Basket() {
     })()
   }, [dispatch])
 
-  const handleDecrement = (basketItem: BasketItem) => {
-    if (basketItem.basketAmount === 1) {
-      return
-    }
-    dispatch(changeBasket(basketItem, '-'))
-  }
-
-  const handleIncrement = (basketItem: BasketItem) => {
-    dispatch(changeBasket(basketItem, '+'))
-  }
-
   return (
     <TableContainer component={Paper} sx={{ p: 5 }}>
       <Typography
@@ -62,6 +51,7 @@ export default function Basket() {
             <TableRow>
               <TableCell>Товар</TableCell>
               <TableCell align="center">Количество</TableCell>
+              <TableCell align="right">Количество на складе</TableCell>
               <TableCell align="right">Стоимость</TableCell>
             </TableRow>
           </TableHead>
@@ -76,28 +66,10 @@ export default function Basket() {
                     {basketItem.brand} {basketItem.name}
                   </TableCell>
                   <TableCell align="center">
-                    <IconButton
-                      size="large"
-                      edge="start"
-                      color="inherit"
-                      aria-label="menu"
-                      onClick={() => handleDecrement(basketItem)}
-                    >
-                      <RemoveIcon />
-                    </IconButton>
-                    {basketItem.basketAmount}
-                    <IconButton
-                      size="large"
-                      edge="start"
-                      color="inherit"
-                      aria-label="menu"
-                      sx={{ ml: 1 }}
-                      onClick={() => handleIncrement(basketItem)}
-                    >
-                      <AddIcon />
-                    </IconButton>
+                    <BasketChange basketItem={basketItem} />
                   </TableCell>
-                  <TableCell align="right">{basketItem.price * basketItem.basketAmount} </TableCell>
+                  <TableCell align="right">{basketItem.amount} </TableCell>
+                  <TableCell align="right">{basketItem.price * basketItem.basketAmount} {String.fromCharCode(0x20BD)} </TableCell>
                 </TableRow>
               ))
             }
@@ -109,13 +81,15 @@ export default function Basket() {
                 Общий итог
               </TableCell>
               <TableCell align="center">{basketAmount}</TableCell>
-              <TableCell align="right">{basketTotalPrice}</TableCell>
+              <TableCell align="center"></TableCell>
+              <TableCell align="right">{basketTotalPrice} {String.fromCharCode(0x20BD)}</TableCell>
             </TableRow>
             <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
               </TableCell>
+              <TableCell align="center"></TableCell>
               <TableCell align="center"></TableCell>
               <TableCell align="right"><Modal /></TableCell>
             </TableRow>
