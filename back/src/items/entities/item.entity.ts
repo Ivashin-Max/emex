@@ -1,9 +1,9 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@ObjectType('disks')
-@Entity('disks')
-export class Disk {
+@ObjectType('items')
+@Entity('items')
+export class Item {
   @Field(() => ID)
   @PrimaryGeneratedColumn('rowid')
   id: number;
@@ -21,15 +21,14 @@ export class Disk {
   brand: string;
   @Field()
   @Column()
-  width: string;
-  @Field()
-  @Column()
-  ports: string;
-  @Field()
-  @Column()
-  radius: string;
+  name: string;
   @Field()
   @Column()
   type: string;
+  @Field()
+  @Column()
+  special: string;
+  @Field()
+  @Column()
+  itemtype: string;
 }
-

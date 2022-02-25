@@ -15,31 +15,33 @@ type tyres {
   season: String!
 }
 
-type disks {
+type items {
   id: ID!
   amount: Float!
   serial: Float!
   price: Float!
   brand: String!
-  width: String!
-  ports: String!
-  radius: String!
+  name: String!
   type: String!
+  special: String!
+  itemtype: String!
 }
 
 type Query {
   getAllTyres: [tyres!]!
-  getSerial(serial: Float!): [disks!]!
+  getSerial(serial: String!): [tyres!]!
   getExactAmountTyres(amount: Float!): [tyres!]!
   findOneTyre(id: Float!): tyres!
-  getAllDisks: [disks!]!
-  getExactAmountDisks(amount: Float!): [disks!]!
-  findOneDisk(id: Float!): disks!
+  items: [items!]!
+  item(id: Int!): items!
+  findAllTyped(type: String!): [items!]!
 }
 
 type Mutation {
   createTyre(tyre: TyreCreateDTO!): tyres!
   updateTyre(tyre: TyreUpdateDTO!): tyres!
+  createItem(createItemInput: CreateItemInput!): items!
+  updateItem(updateItemInput: UpdateItemInput!): items!
 }
 
 input TyreCreateDTO {
@@ -56,4 +58,15 @@ input TyreCreateDTO {
 input TyreUpdateDTO {
   id: ID!
   amount: Float!
+}
+
+input CreateItemInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateItemInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }

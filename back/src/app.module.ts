@@ -4,7 +4,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TyreModule } from './tyre/tyre.module';
-import { DisksModule } from './disks/disks.module';
+
+import { ItemsModule } from './items/items.module';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { DisksModule } from './disks/disks.module';
       logging: true
     }),
     TyreModule,
-    DisksModule,
+    ItemsModule,
   ],
   controllers: [],
   providers: [],

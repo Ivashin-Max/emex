@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { Container, Grid, Button } from '@mui/material';
 import EXACT_AMOUNT_TYRES from '../../queries/tyres/EXACT_AMOUNT_TYRES';
 import EXACT_AMOUNT_DISKS from '../../queries/disks/EXACT_AMOUNT_DISKS';
@@ -9,13 +9,15 @@ import React from 'react';
 import { useLocation } from "react-router-dom";
 import BasketChange from '../BasketChange';
 import { FetchDisks, FetchTyres } from '../../types/queries'
+import GET_ONE_BY_ID from '../../queries/tyres/GET_ONE_BY_ID';
 
 const Catalog = () => {
   let location = useLocation();
   const currentCatalog = location.search.split('=')[1];
-  console.log('currentCatalog', currentCatalog)
+
   const [currentAmount, setCurrentAmount] = React.useState(3)
 
+  const q = null;
 
   const { loading, error, data } = useQuery<FetchTyres>(EXACT_AMOUNT_TYRES, { variables: { amount: currentAmount } });
   // const { data: disks } = useQuery<FetchDisks>(EXACT_AMOUNT_DISKS, { variables: { amount: currentAmount } });

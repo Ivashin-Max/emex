@@ -11,6 +11,7 @@ getExactAmountTyres(amount: $amount){
   price
 }
 }
+
 `;
 
 export default EXACT_AMOUNT_TYRES;
