@@ -17,7 +17,7 @@ export class TyreResolver {
     return await this.tyreService.getSerial(serial);
   }
 
-  @Query(() => [Tyre], { name: 'getExactAmount' })
+  @Query(() => [Tyre], { name: 'getExactAmountTyres' })
   async getExactAmount(@Args('amount') amount: number) {
     return await this.tyreService.getExactAmount(amount);
   }

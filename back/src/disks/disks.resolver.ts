@@ -6,30 +6,26 @@ import { UpdateDiskInput } from './dto/update-disk.input';
 
 @Resolver(() => Disk)
 export class DisksResolver {
-  constructor(private readonly disksService: DisksService) {}
+  constructor(private readonly diskService: DisksService) { }
 
-  @Mutation(() => Disk)
-  createDisk(@Args('createDiskInput') createDiskInput: CreateDiskInput) {
-    return this.disksService.create(createDiskInput);
-  }
-
-  @Query(() => [Disk], { name: 'disks' })
+  @Query(() => [Disk], { name: 'getAllDisks' })
   findAll() {
-    return this.disksService.findAll();
+    return this.diskService.findAllDisks();
   }
 
-  @Query(() => Disk, { name: 'disk' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.disksService.findOne(id);
+  @Query(() => [Disk], { name: 'getSerial' })
+  async findSerial(@Args('serial') serial: number) {
+    return await this.diskService.getSerialDisk(serial);
   }
 
-  @Mutation(() => Disk)
-  updateDisk(@Args('updateDiskInput') updateDiskInput: UpdateDiskInput) {
-    return this.disksService.update(updateDiskInput.id, updateDiskInput);
+  @Query(() => [Disk], { name: 'getExactAmountDisks' })
+  async getExactAmount(@Args('amount') amount: number) {
+    return await this.diskService.getExactAmountDisk(amount);
   }
 
-  @Mutation(() => Disk)
-  removeDisk(@Args('id', { type: () => Int }) id: number) {
-    return this.disksService.remove(id);
+  @Query(() => Disk)
+  async findOneDisk(@Args('id') id: number) {
+    return await this.diskService.getOneDisk(id);
   }
+
 }

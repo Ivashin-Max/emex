@@ -15,11 +15,26 @@ type tyres {
   season: String!
 }
 
+type disks {
+  id: ID!
+  amount: Float!
+  serial: Float!
+  price: Float!
+  brand: String!
+  width: String!
+  ports: String!
+  radius: String!
+  type: String!
+}
+
 type Query {
   getAllTyres: [tyres!]!
-  getSerial(serial: String!): [tyres!]!
-  getExactAmount(amount: Float!): [tyres!]!
+  getSerial(serial: Float!): [disks!]!
+  getExactAmountTyres(amount: Float!): [tyres!]!
   findOneTyre(id: Float!): tyres!
+  getAllDisks: [disks!]!
+  getExactAmountDisks(amount: Float!): [disks!]!
+  findOneDisk(id: Float!): disks!
 }
 
 type Mutation {

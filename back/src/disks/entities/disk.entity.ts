@@ -1,7 +1,35 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@ObjectType()
+@ObjectType('disks')
+@Entity('disks')
 export class Disk {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => ID)
+  @PrimaryGeneratedColumn('rowid')
+  id: number;
+  @Field()
+  @Column()
+  amount: number;
+  @Field()
+  @Column()
+  serial: number;
+  @Field()
+  @Column()
+  price: number;
+  @Field()
+  @Column()
+  brand: string;
+  @Field()
+  @Column()
+  width: string;
+  @Field()
+  @Column()
+  ports: string;
+  @Field()
+  @Column()
+  radius: string;
+  @Field()
+  @Column()
+  type: string;
 }
+
