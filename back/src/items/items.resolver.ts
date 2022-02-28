@@ -18,7 +18,7 @@ export class ItemsResolver {
     return this.itemsService.findAll();
   }
 
-  @Query(() => Item, { name: 'item' })
+  @Query(() => Item, { name: 'findOne' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.itemsService.findOne(id);
   }
@@ -28,8 +28,16 @@ export class ItemsResolver {
     return this.itemsService.findAllTyped(type);
   }
 
-  @Mutation(() => Item)
+  @Query(() => [Item], { name: 'findExactAmountTyped' })
+  findExactAmountTyped(
+    @Args('type', { type: () => String }) type: string,
+    @Args('amount') amount: number,
+  ) {
+    return this.itemsService.getExactAmountTyped(amount, type);
+  }
+
+  @Mutation(() => Item, { name: 'updateItem' })
   updateItem(@Args('updateItemInput') updateItemInput: UpdateItemInput) {
-    return this.itemsService.update(updateItemInput.id, updateItemInput);
+    return this.itemsService.update(updateItemInput);
   }
 }

@@ -7,7 +7,6 @@ import { Item } from './entities/item.entity';
 
 @Injectable()
 export class ItemsService {
-
   constructor(
     @InjectRepository(Item) private readonly itemRepo: Repository<Item>,
   ) { }
@@ -32,11 +31,18 @@ export class ItemsService {
     return await this.itemRepo.find({ where: { itemtype: type } });
   }
 
-  async getExactAmount(amount: number) {
-    return await this.itemRepo.find({ take: amount });
+  async getExactAmountTyped(amount: number, type: string) {
+    return await this.itemRepo.find({
+      take: amount,
+      where: { itemtype: type },
+    });
   }
 
-  update(id: number, updateDiskInput: UpdateItemInput) {
-    return `This action updates a #${id} disk`;
+  async update(updateItemInput: UpdateItemInput) {
+    await this.itemRepo.update(
+      { id: updateItemInput.id },
+      { ...updateItemInput },
+    );
+    return await this.findOne(updateItemInput.id);
   }
 }

@@ -1,8 +1,9 @@
-import { CreateItemInput } from './create-item.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateItemInput extends PartialType(CreateItemInput) {
-  @Field(() => Int)
+export class UpdateItemInput {
+  @Field()
   id: number;
+  @Field()
+  amount: number;
 }

@@ -2,19 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type tyres {
-  id: ID!
-  amount: Float!
-  serial: Float!
-  price: Float!
-  brand: String!
-  name: String!
-  width: String!
-  height: String!
-  radius: String!
-  season: String!
-}
-
 type items {
   id: ID!
   amount: Float!
@@ -28,36 +15,15 @@ type items {
 }
 
 type Query {
-  getAllTyres: [tyres!]!
-  getSerial(serial: String!): [tyres!]!
-  getExactAmountTyres(amount: Float!): [tyres!]!
-  findOneTyre(id: Float!): tyres!
   items: [items!]!
-  item(id: Int!): items!
+  findOne(id: Int!): items!
   findAllTyped(type: String!): [items!]!
+  findExactAmountTyped(type: String!, amount: Float!): [items!]!
 }
 
 type Mutation {
-  createTyre(tyre: TyreCreateDTO!): tyres!
-  updateTyre(tyre: TyreUpdateDTO!): tyres!
   createItem(createItemInput: CreateItemInput!): items!
   updateItem(updateItemInput: UpdateItemInput!): items!
-}
-
-input TyreCreateDTO {
-  amount: Float!
-  serial: Float!
-  brand: String!
-  name: String!
-  width: String!
-  height: String!
-  radius: String!
-  season: String!
-}
-
-input TyreUpdateDTO {
-  id: ID!
-  amount: Float!
 }
 
 input CreateItemInput {
@@ -66,7 +32,6 @@ input CreateItemInput {
 }
 
 input UpdateItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  id: Float!
+  amount: Float!
 }

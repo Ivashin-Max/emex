@@ -3,8 +3,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TyreModule } from './tyre/tyre.module';
-
 import { ItemsModule } from './items/items.module';
 
 @Module({
@@ -26,9 +24,8 @@ import { ItemsModule } from './items/items.module';
       database: 'postgres',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
-      logging: true
+      logging: true,
     }),
-    TyreModule,
     ItemsModule,
   ],
   controllers: [],
