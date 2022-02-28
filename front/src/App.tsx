@@ -6,6 +6,7 @@ import Header from './components/Header';
 import CssBaseline from '@mui/material/CssBaseline';
 import Catalog from './components/pages/Catalog';
 import ItemPage from './components/pages/ItemPage';
+import Search from './components/pages/Search';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/basket" element={<Basket />} />
         <Route path="/product" element={<ItemPage />} />
+        <Route path="/search" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

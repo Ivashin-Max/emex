@@ -31,7 +31,7 @@ export const basketReducer = (state = initialState, action: BasketAction): Baske
         basketAmount: state.basketAmount + 1,
       }
     case BasketActionTypes.CHANGE_AMOUNT:
-      console.log(`CHANGE_AMOUNT, operation: ${action.payload.operation}`);
+      // console.log(`CHANGE_AMOUNT, operation: ${action.payload.operation}`);
       return {
         ...state,
         items: changeBasketAmount(state, action.payload.id, action.payload.operation),
@@ -40,8 +40,8 @@ export const basketReducer = (state = initialState, action: BasketAction): Baske
     case BasketActionTypes.REMOVE_ITEM:
       return {
         ...state,
-        items: [],
-        basketAmount: state.basketAmount - 1
+        items: state.items.filter((item) => item.id !== action.payload.id),
+        basketAmount: state.basketAmount - action.payload.basketAmount
       }
     default:
       return state

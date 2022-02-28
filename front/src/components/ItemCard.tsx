@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { changeBasket } from '../store/actions/changeBasket';
 import { useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { RUB_CHAR } from '../types/items';
 
 
 export default function MultiActionAreaCard(props: any) {
@@ -55,7 +56,7 @@ export default function MultiActionAreaCard(props: any) {
           <AddShoppingCartIcon color="info" />
         </IconButton>
         <Typography gutterBottom variant="body2" color="text.secondary" >
-          {props.item.price} {String.fromCharCode(0x20BD)}
+          {props.item.price} {RUB_CHAR}
         </Typography>
 
       </CardActions>

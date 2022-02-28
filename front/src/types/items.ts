@@ -1,4 +1,4 @@
-
+export const RUB_CHAR = String.fromCharCode(0x20BD);
 
 export interface ItemCard {
   id: number;

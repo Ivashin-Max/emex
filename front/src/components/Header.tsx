@@ -14,8 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import { Badge } from '@mui/material';
 import { useTypedSelector } from '../hook/useTypedSelector';
-import { useQuery, useLazyQuery } from '@apollo/client';
-import SEARCH_BAR from '../queries/SEARCH';
+import { useLazyQuery } from '@apollo/client';
+import GET_ONE_BY_ID from '../queries/GET_ONE_BY_ID';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -57,8 +57,8 @@ export default function SearchAppBar() {
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [searchInput, setSearchInput] = React.useState(0);
-
-  const [handleSearch, { loading, error, data }] = useLazyQuery(SEARCH_BAR)
+  const linkToSearch = `/search?id=${searchInput}`;
+  const [handleSearch, { loading, error, data }] = useLazyQuery(GET_ONE_BY_ID)
 
 
   const open = Boolean(anchorEl);
@@ -109,29 +109,29 @@ export default function SearchAppBar() {
             <MenuItem
               onClick={handleClose}
               component={Link}
-              to='/catalog?name=tyres'
+              to='/catalog?name=tyre'
             >
               Шины
             </MenuItem>
             <MenuItem
               onClick={handleClose}
               component={Link}
-              to='/catalog?name=disks'
+              to='/catalog?name=disk'
             >
               Диски
             </MenuItem>
             <MenuItem
               onClick={handleClose}
               component={Link}
-              to='/catalog?name=oils'
+              to='/catalog?name=oil'
             >
               Масла
             </MenuItem>
           </Menu>
 
-          <Search >
+          <Search sx={{ flexGrow: 1 }}>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Id…"
               inputProps={{ 'aria-label': 'search' }}
               onChange={event => setSearchInput(+event.target.value)}
             />
@@ -143,16 +143,18 @@ export default function SearchAppBar() {
             color="inherit"
             aria-label="search"
             sx={{ ml: 1 }}
-            onClick={
-              () => {
-                handleSearch(
-                  {
-                    variables: {
-                      searching: searchInput,
-                    },
-                  }
-                )
-              }}
+            component={Link}
+            to={linkToSearch}
+          // onClick={
+          //   () => {
+          //     handleSearch(
+          //       {
+          //         variables: {
+          //           id: searchInput,
+          //         },
+          //       }
+          //     )
+          //   }}
           >
             <SearchIcon />
           </IconButton>

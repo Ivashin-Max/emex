@@ -1,39 +1,36 @@
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { Container, Grid, Button } from '@mui/material';
-import EXACT_AMOUNT_TYRES from '../../queries/tyres/EXACT_AMOUNT_TYRES';
-import EXACT_AMOUNT_DISKS from '../../queries/disks/EXACT_AMOUNT_DISKS';
 import MultiActionAreaCard from '../ItemCard'
 import { BasketItem } from '../../types/basket';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import BasketChange from '../BasketChange';
-import { FetchDisks, FetchTyres } from '../../types/queries'
-import GET_ONE_BY_ID from '../../queries/tyres/GET_ONE_BY_ID';
+import { FetchItems } from '../../types/queries'
+import GET_ONE_BY_ID from '../../queries/GET_ONE_BY_ID';
+import EXACT_AMOUNT_TYPED from '../../queries/EXACT_AMOUNT_TYPED';
 
 const Catalog = () => {
   let location = useLocation();
   const currentCatalog = location.search.split('=')[1];
-
   const [currentAmount, setCurrentAmount] = React.useState(3)
 
-  const q = null;
 
-  const { loading, error, data } = useQuery<FetchTyres>(EXACT_AMOUNT_TYRES, { variables: { amount: currentAmount } });
-  // const { data: disks } = useQuery<FetchDisks>(EXACT_AMOUNT_DISKS, { variables: { amount: currentAmount } });
-
+  const { loading, error, data } = useQuery<FetchItems>(EXACT_AMOUNT_TYPED, { variables: { amount: currentAmount, type: currentCatalog } });
 
   let fetchMapping = null;
-  if (data) fetchMapping = Object.values(data)[0];
+  if (data) {
 
+    fetchMapping = Object.values(data)[0];
+    // console.log('data', fetchMapping)
+  }
 
-  // if (disks) console.log(disks)
 
 
   const handleMoreClick = () => {
-    console.log('currentAmount', currentAmount);
+    // console.log('currentAmount', currentAmount);
     setCurrentAmount(currentAmount + 3);
-    console.log('nextAmount', currentAmount);
+    // console.log('nextAmount', currentAmount);
   }
   if (loading) return (
     <h1>Gruzim</h1>

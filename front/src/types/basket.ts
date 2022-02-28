@@ -1,3 +1,4 @@
+
 export interface BasketItem {
   id: string;
   amount: number;
@@ -26,7 +27,7 @@ interface AddItemAction {
 }
 interface RemoveItemAction {
   type: BasketActionTypes.REMOVE_ITEM;
-  payload: any[]
+  payload: BasketItem
 }
 
 export interface ChangeAmountPayload {

@@ -16,6 +16,7 @@ import { changeBasket } from '../../store/actions/changeBasket';
 import { BasketItem } from '../../types/basket';
 import Modal from '../Modal';
 import BasketChange from '../BasketChange';
+import { RUB_CHAR } from '../../types/items';
 
 export default function Basket() {
   const basketItems = useTypedSelector(state => state.basket.items)
@@ -26,13 +27,7 @@ export default function Basket() {
         (accumulator, currentValue) => accumulator + (currentValue.price * currentValue.basketAmount), 0
       );
 
-  const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    (() => {
-      console.log("RISOVKA");
-    })()
-  }, [dispatch])
 
   return (
     <TableContainer component={Paper} sx={{ p: 5 }}>
@@ -69,7 +64,7 @@ export default function Basket() {
                     <BasketChange basketItem={basketItem} />
                   </TableCell>
                   <TableCell align="right">{basketItem.amount} </TableCell>
-                  <TableCell align="right">{basketItem.price * basketItem.basketAmount} {String.fromCharCode(0x20BD)} </TableCell>
+                  <TableCell align="right">{basketItem.price * basketItem.basketAmount} {RUB_CHAR} </TableCell>
                 </TableRow>
               ))
             }
@@ -82,7 +77,7 @@ export default function Basket() {
               </TableCell>
               <TableCell align="center">{basketAmount}</TableCell>
               <TableCell align="center"></TableCell>
-              <TableCell align="right">{basketTotalPrice} {String.fromCharCode(0x20BD)}</TableCell>
+              <TableCell align="right">{basketTotalPrice} {RUB_CHAR}</TableCell>
             </TableRow>
             <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

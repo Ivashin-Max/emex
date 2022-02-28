@@ -1,26 +1,20 @@
-export interface FetchTyres {
-  getExactAmountTyres: Tyres[];
+export interface FetchItems {
+  findExactAmountTyped: Item[];
 }
 
-type Tyres = {
+export interface FetchItem {
+  findOne: Item;
+}
+
+export type Item = {
   amount: number
   brand: string
   id: string
   price: number
   name: string
-  serial: number
+  itemtype: string
+  special: string
+  type: string
   __typename: string
 };
 
-export interface FetchDisks {
-  getExactAmountDisks: Disks[];
-}
-
-type Disks = {
-  amount: number
-  brand: string
-  id: string
-  price: number
-  serial: number
-  __typename: string
-};
