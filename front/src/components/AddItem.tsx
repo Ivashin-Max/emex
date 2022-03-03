@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -16,10 +16,14 @@ import CREATE_ITEM from '../queries/CREATE_ITEM';
 import { useMutation } from '@apollo/client';
 import { useForm, Controller } from "react-hook-form";
 import Input from "@mui/material/Input";
+import GET_ONE_BY_ID from '../queries/GET_ONE_BY_ID';
+import { FetchItem } from '../types/queries';
+import { IItemType } from '../types/useStateTypes';
 
 export default function AddItem(props: AddItemProps) {
 
-  const [handleCreate, { loading, error, data }] = useMutation(CREATE_ITEM)
+  const [handleCreate, { data: createData }] = useMutation(CREATE_ITEM)
+  const { loading, error, data: editData } = useQuery<FetchItem>(GET_ONE_BY_ID, { variables: { id: props.editId }, skip: !props.edit });
 
   const [type, setType] = React.useState('');
   const [brand, setBrand] = React.useState('');
@@ -28,6 +32,18 @@ export default function AddItem(props: AddItemProps) {
   const [price, setPrice] = React.useState('');
   const [special, setSpecial] = React.useState('');
   const isEnabled = type && brand && name && amount && price && special;
+  React.useEffect(() => {
+    if (editData) {
+      setType(editData.findOne.itemtype)
+      setBrand(editData.findOne.brand)
+      setName(editData.findOne.name)
+      setAmount(editData.findOne.amount.toString())
+      setPrice(editData.findOne.price.toString())
+      setSpecial(editData.findOne.special)
+    }
+
+  }, [editData])
+
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,10 +58,20 @@ export default function AddItem(props: AddItemProps) {
     };
     console.log('newItem', newItem);
     handleCreate({ variables: { item: newItem } })
+    // setType("asdadads")
   };
 
-  if (data) console.log('data', data)
+  if (createData) console.log('createData', createData)
 
+  // if (editData) {
+  //   console.log(editData.findOne)
+  //   setType(editData.findOne.itemtype)
+  //   // setBrand(editData.findOne.brand)
+  //   // setName(editData.findOne.name)
+  //   // setAmount(editData.findOne.amount.toString())
+  //   // setPrice(editData.findOne.price.toString())
+  //   // setSpecial(editData.findOne.special)
+  // }
 
   const handleChange = (event: SelectChangeEvent) => {
     setType(event.target.value as string);

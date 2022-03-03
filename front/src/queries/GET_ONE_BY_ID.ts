@@ -7,10 +7,8 @@ query ($id: Int!){
   brand
   amount
   name
-  serial
   price
   special
-  type
   itemtype
 }
 

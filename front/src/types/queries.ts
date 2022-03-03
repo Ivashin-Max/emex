@@ -6,6 +6,11 @@ export interface FetchItem {
   findOne: Item;
 }
 
+export interface CreatedItem {
+  createItem: Item;
+}
+
+
 export type Item = {
   amount: number
   brand: string
@@ -14,7 +19,9 @@ export type Item = {
   name: string
   itemtype: string
   special: string
-  type: string
   __typename: string
 };
+
+
+
 

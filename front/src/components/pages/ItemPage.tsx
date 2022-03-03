@@ -14,6 +14,7 @@ import { FetchItem } from '../../types/queries';
 import { RUB_CHAR } from '../../types/items';
 import { useDispatch } from 'react-redux';
 import { changeBasket } from '../../store/actions/changeBasket';
+import { Container } from '@mui/material';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -34,12 +35,19 @@ export default function BasicGrid() {
   const handleClick = () => {
     if (data?.findOne) dispatch(changeBasket(data.findOne, '+'))
   }
-  const checkType = (item: FetchItem) => {
-    return item.findOne.type
-  }
+  // const checkType = (item: FetchItem) => {
+  //   return item.findOne.type
+  // }
 
   if (loading) return (
     <h1>Gruzim</h1>
+  )
+
+  if (error) return (
+    <Container sx={{ py: 1 }} maxWidth="lg">
+      <h1>Товара с таким id не существует</h1>
+    </Container>
+
   )
   return (
     <>
@@ -70,7 +78,7 @@ export default function BasicGrid() {
                   Название: {data.findOne.name}
                 </Typography>
                 <Typography gutterBottom align='left' variant="body2" color="text.secondary" >
-                  Тип: {checkType(data)}
+                  Тип:
                 </Typography>
                 {/* <Typography gutterBottom align='left' variant="body2" color="text.secondary" >
                   {data.findOne.special}
