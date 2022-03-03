@@ -5,11 +5,11 @@
 type items {
   id: ID!
   amount: Float!
-  serial: Float!
+  serial: Float
   price: Float!
   brand: String!
   name: String!
-  type: String!
+  type: String
   special: String!
   itemtype: String!
 }
@@ -23,12 +23,17 @@ type Query {
 
 type Mutation {
   createItem(createItemInput: CreateItemInput!): items!
-  updateItem(updateItemInput: UpdateItemInput!): items!
+  updateOneItem(updateItemInput: UpdateItemInput!): items!
+  updateMultipleItems(updateItemsInput: UpdateItemInput!): items!
 }
 
 input CreateItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  amount: Float!
+  price: Float!
+  brand: String!
+  name: String!
+  special: String!
+  itemtype: String!
 }
 
 input UpdateItemInput {

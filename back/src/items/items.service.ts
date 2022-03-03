@@ -11,8 +11,8 @@ export class ItemsService {
     @InjectRepository(Item) private readonly itemRepo: Repository<Item>,
   ) { }
 
-  create(createDiskInput: CreateItemInput) {
-    return 'This action adds a new disk';
+  async create(createItemInput: CreateItemInput) {
+    return await this.itemRepo.save(createItemInput)
   }
 
   async findAll() {
@@ -38,11 +38,17 @@ export class ItemsService {
     });
   }
 
-  async update(updateItemInput: UpdateItemInput) {
+  async updateOne(updateItemInput: UpdateItemInput) {
     await this.itemRepo.update(
       { id: updateItemInput.id },
       { ...updateItemInput },
     );
     return await this.findOne(updateItemInput.id);
+  }
+  async updateMultiple(updateItemInput: [UpdateItemInput]) {
+    for (let i = 0; i < updateItemInput.length; i++) {
+      const element = updateItemInput[i];
+      await this.updateOne(element);
+    }
   }
 }

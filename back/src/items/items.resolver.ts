@@ -9,8 +9,8 @@ export class ItemsResolver {
   constructor(private readonly itemsService: ItemsService) { }
 
   @Mutation(() => Item)
-  createItem(@Args('createItemInput') createItemInput: CreateItemInput) {
-    return this.itemsService.create(createItemInput);
+  async createItem(@Args('createItemInput') createItemInput: CreateItemInput) {
+    return await this.itemsService.create(createItemInput);
   }
 
   @Query(() => [Item], { name: 'items' })
@@ -36,8 +36,16 @@ export class ItemsResolver {
     return this.itemsService.getExactAmountTyped(amount, type);
   }
 
-  @Mutation(() => Item, { name: 'updateItem' })
+  @Mutation(() => Item, { name: 'updateOneItem' })
   updateItem(@Args('updateItemInput') updateItemInput: UpdateItemInput) {
-    return this.itemsService.update(updateItemInput);
+    return this.itemsService.updateOne(updateItemInput);
   }
+
+  @Mutation(() => Item, { name: 'updateMultipleItems' })
+  updateMultipleItems(
+    @Args('updateItemsInput') updateItemInput: UpdateItemInput,
+  ) {
+    // return this.itemsService.updateMultiple(updateItemInput);
+  }
+
 }
