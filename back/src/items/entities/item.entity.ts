@@ -10,8 +10,8 @@ export class Item {
   @Field()
   @Column()
   amount: number;
-  @Field()
-  @Column()
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   serial: number;
   @Field()
   @Column()
@@ -22,8 +22,8 @@ export class Item {
   @Field()
   @Column()
   name: string;
-  @Field()
-  @Column()
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   type: string;
   @Field()
   @Column()
