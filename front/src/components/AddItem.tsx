@@ -15,6 +15,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import CREATE_ITEM from '../queries/CREATE_ITEM';
 import { useMutation } from '@apollo/client';
 import { useForm, Controller } from "react-hook-form";
+import Input from "@mui/material/Input";
 
 export default function AddItem(props: AddItemProps) {
 
@@ -94,6 +95,20 @@ export default function AddItem(props: AddItemProps) {
           </>
         }
         <Box>
+          <Controller
+            name="firstName"
+
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) =>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="brand"
+                label="Бренд"
+                {...field} />}
+          />
           <TextField
             margin="normal"
             required
