@@ -21,51 +21,32 @@ export default function AddItem(props: AddItemProps) {
 
   const [handleCreate, { loading, error, data }] = useMutation(CREATE_ITEM)
 
-  const { control, handleSubmit } = useForm({
-    defaultValues: {
-      firstName: '',
-      select: {}
-    }
-  });
-  const onSubmit = (data: any) => console.log(data);
-
   const [type, setType] = React.useState('');
   const [brand, setBrand] = React.useState('');
   const [name, setName] = React.useState('');
   const [amount, setAmount] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [special, setSpecial] = React.useState('');
+  const isEnabled = type && brand && name && amount && price && special;
 
-  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   const newItem = {
-  //     brand: data.get('brand'),
-  //     name: data.get('name'),
-  //     amount: data.get('amount'),
-  //     price: data.get('price'),
-  //     special: data.get('special'),
-  //     itemtype: type,
-  //   };
-  //   console.log('newItem', newItem);
-  //   handleCreate(
-  //     {
-  //       variables:
-  //       {
-  //         "item": {
-  //           "amount": Number(newItem.amount),
-  //           "price": Number(newItem.price),
-  //           "brand": newItem.brand,
-  //           "name": newItem.name,
-  //           "special": newItem.special,
-  //           "itemtype": newItem.itemtype
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const newItem = {
+      "amount": Number(amount),
+      "price": Number(price),
+      "brand": brand,
+      "name": name,
+      "special": special,
+      "itemtype": type
 
-  //         }
-  //       }
-  //     }
-  //   )
-  // };
+    };
+    console.log('newItem', newItem);
+    handleCreate({ variables: { item: newItem } })
+  };
+
   if (data) console.log('data', data)
+
+
   const handleChange = (event: SelectChangeEvent) => {
     setType(event.target.value as string);
   };
@@ -82,6 +63,7 @@ export default function AddItem(props: AddItemProps) {
         }}
         component="form"
         autoComplete='off'
+        onSubmit={handleSubmit}
       >
         {!props.edit &&
           <>
@@ -95,25 +77,13 @@ export default function AddItem(props: AddItemProps) {
           </>
         }
         <Box>
-          <Controller
-            name="firstName"
-
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) =>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="brand"
-                label="Бренд"
-                {...field} />}
-          />
           <TextField
             margin="normal"
             required
             fullWidth
             id="brand"
+            value={brand}
+            onChange={e => setBrand(e.currentTarget.value)}
             label="Бренд"
             name="brand"
           />
@@ -122,6 +92,8 @@ export default function AddItem(props: AddItemProps) {
             required
             fullWidth
             name="name"
+            value={name}
+            onChange={e => setName(e.currentTarget.value)}
             label="Название"
             id="name"
           />
@@ -130,6 +102,8 @@ export default function AddItem(props: AddItemProps) {
             required
             fullWidth
             name="amount"
+            value={amount}
+            onChange={e => setAmount(e.currentTarget.value)}
             type="number"
             label="Количество"
             id="amount"
@@ -139,6 +113,8 @@ export default function AddItem(props: AddItemProps) {
             required
             fullWidth
             name="price"
+            value={price}
+            onChange={e => setPrice(e.currentTarget.value)}
             type="number"
             label="Цена"
             id="price"
@@ -148,6 +124,8 @@ export default function AddItem(props: AddItemProps) {
             required
             fullWidth
             name="special"
+            value={special}
+            onChange={e => setSpecial(e.currentTarget.value)}
             label="Инфо"
             id="special"
           />
@@ -173,7 +151,7 @@ export default function AddItem(props: AddItemProps) {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-
+            disabled={!isEnabled}
           >
             Добавить товар
           </Button>}
