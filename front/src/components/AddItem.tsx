@@ -19,10 +19,13 @@ import Input from "@mui/material/Input";
 import GET_ONE_BY_ID from '../queries/GET_ONE_BY_ID';
 import { FetchItem } from '../types/queries';
 import { IItemType } from '../types/useStateTypes';
+import UPDATE_ITEM from '../queries/UPDATE_ITEM';
+import { IItem } from '../types/items';
 
 export default function AddItem(props: AddItemProps) {
 
   const [handleCreate, { data: createData }] = useMutation(CREATE_ITEM)
+  const [handleUpdate, { data: updateData }] = useMutation(UPDATE_ITEM)
   const { loading, error, data: editData } = useQuery<FetchItem>(GET_ONE_BY_ID, { variables: { id: props.editId }, skip: !props.edit });
 
   const [type, setType] = React.useState('');
@@ -47,31 +50,23 @@ export default function AddItem(props: AddItemProps) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newItem = {
+    let newItem: IItem = {
       "amount": Number(amount),
       "price": Number(price),
       "brand": brand,
       "name": name,
       "special": special,
-      "itemtype": type
-
+      "itemtype": type,
     };
-    console.log('newItem', newItem);
-    handleCreate({ variables: { item: newItem } })
-    // setType("asdadads")
+
+    if (props.edit) {
+      newItem.id = props.editId
+      handleUpdate({ variables: { item: newItem } })
+    }
+    else handleCreate({ variables: { item: newItem } })
   };
 
-  if (createData) console.log('createData', createData)
 
-  // if (editData) {
-  //   console.log(editData.findOne)
-  //   setType(editData.findOne.itemtype)
-  //   // setBrand(editData.findOne.brand)
-  //   // setName(editData.findOne.name)
-  //   // setAmount(editData.findOne.amount.toString())
-  //   // setPrice(editData.findOne.price.toString())
-  //   // setSpecial(editData.findOne.special)
-  // }
 
   const handleChange = (event: SelectChangeEvent) => {
     setType(event.target.value as string);
@@ -102,7 +97,8 @@ export default function AddItem(props: AddItemProps) {
             </Typography>
           </>
         }
-        <Box>
+
+        {!error && !loading && !updateData && <Box>
           <TextField
             margin="normal"
             required
@@ -181,8 +177,38 @@ export default function AddItem(props: AddItemProps) {
           >
             Добавить товар
           </Button>}
+          {props.edit && <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            disabled={!isEnabled}
+          >
+            Редактировать товар
+          </Button>}
           <Divider orientation="vertical" flexItem />
-        </Box>
+        </Box>}
+
+        {error &&
+          <>
+            <Typography variant="h5" gutterBottom sx={{ mt: 2 }}>
+              Ошибка!
+            </Typography>
+            <Typography variant="subtitle1">
+              {error.message}
+            </Typography>
+          </>
+        }
+        {updateData &&
+          <>
+            <Typography variant="h5" gutterBottom sx={{ mt: 2 }} alignItems="center">
+              Успешно!
+            </Typography>
+            <Typography variant="subtitle1">
+              Товар  отредактирован
+            </Typography>
+          </>
+        }
       </Box>
 
     </>
