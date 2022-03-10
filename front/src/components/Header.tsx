@@ -1,22 +1,13 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
+import { Toolbar, Box, AppBar, IconButton, InputBase, Menu, Badge, styled, alpha } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
-import { Badge } from '@mui/material';
 import { useTypedSelector } from '../hook/useTypedSelector';
-import { useLazyQuery } from '@apollo/client';
-import GET_ONE_BY_ID from '../queries/GET_ONE_BY_ID';
-
+import HeaderMenu from './Header_menu';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,7 +49,7 @@ export default function SearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [searchInput, setSearchInput] = React.useState(0);
   const linkToSearch = `/search?id=${searchInput}`;
-  const [handleSearch, { loading, error, data }] = useLazyQuery(GET_ONE_BY_ID)
+
 
 
   const open = Boolean(anchorEl);
@@ -87,6 +78,7 @@ export default function SearchAppBar() {
           >
             <HomeIcon />
           </IconButton>
+
           <IconButton
             size="large"
             edge="start"
@@ -104,6 +96,7 @@ export default function SearchAppBar() {
             onClose={handleClose}
             MenuListProps={{
               'aria-labelledby': 'basic-button',
+
             }}
           >
             <MenuItem
@@ -112,6 +105,7 @@ export default function SearchAppBar() {
               to='/catalog?name=tyre'
             >
               Шины
+
             </MenuItem>
             <MenuItem
               onClick={handleClose}
@@ -131,6 +125,7 @@ export default function SearchAppBar() {
 
           <Search sx={{ flexGrow: 1 }}>
             <StyledInputBase
+              sx={{ width: '100%' }}
               placeholder="Id…"
               inputProps={{ 'aria-label': 'search' }}
               onChange={event => setSearchInput(+event.target.value)}
@@ -145,16 +140,6 @@ export default function SearchAppBar() {
             sx={{ ml: 1 }}
             component={Link}
             to={linkToSearch}
-          // onClick={
-          //   () => {
-          //     handleSearch(
-          //       {
-          //         variables: {
-          //           id: searchInput,
-          //         },
-          //       }
-          //     )
-          //   }}
           >
             <SearchIcon />
           </IconButton>
@@ -167,11 +152,7 @@ export default function SearchAppBar() {
             component={Link}
             to='/basket'
           >
-
-            <Badge badgeContent={state.basketAmount} color="error">
-              <ShoppingCartIcon />
-            </Badge>
-
+            <Badge badgeContent={state.basketAmount} color="error"><ShoppingCartIcon /></Badge>
           </IconButton>
         </Toolbar>
       </AppBar>
