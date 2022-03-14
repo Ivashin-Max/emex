@@ -27,6 +27,6 @@ export interface HeaderMenuProps {
 }
 
 export interface MultiActionAreaCardProps {
-  item: BasketItem | Item;
+  item: Item;
   img: string;
 }

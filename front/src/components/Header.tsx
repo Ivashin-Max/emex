@@ -4,8 +4,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import MenuItem from '@mui/material/MenuItem';
+
 import { Link } from 'react-router-dom';
+
 import { useTypedSelector } from '../hook/useTypedSelector';
 import HeaderMenu from './Header_menu';
 
@@ -29,16 +30,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
   },
 }));
 
@@ -49,10 +42,8 @@ export default function SearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [searchInput, setSearchInput] = React.useState(0);
   const linkToSearch = `/search?id=${searchInput}`;
-
-
-
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -63,8 +54,7 @@ export default function SearchAppBar() {
     handleClose();
   }
 
-
-  const state = useTypedSelector(state => state.basket)
+  const basketAmountNumber = useTypedSelector(state => state.basket.basketAmount)
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -74,7 +64,6 @@ export default function SearchAppBar() {
             size="large"
             edge="start"
             color="inherit"
-            aria-label="menu"
             sx={{ mr: 2 }}
             component={Link}
             to='/'
@@ -86,7 +75,6 @@ export default function SearchAppBar() {
             size="large"
             edge="start"
             color="inherit"
-            aria-label="open drawer"
             sx={{ mr: 2 }}
             onClick={handleClick}
           >
@@ -97,10 +85,6 @@ export default function SearchAppBar() {
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-
-            }}
           >
             <HeaderMenu onClick={handleSubmenuClick} />
           </Menu>
@@ -118,7 +102,6 @@ export default function SearchAppBar() {
             size="large"
             edge="start"
             color="inherit"
-            aria-label="search"
             sx={{ ml: 1 }}
             component={Link}
             to={linkToSearch}
@@ -129,12 +112,11 @@ export default function SearchAppBar() {
             size="large"
             edge="start"
             color="inherit"
-            aria-label="menu"
             sx={{ ml: 1 }}
             component={Link}
             to='/basket'
           >
-            <Badge badgeContent={state.basketAmount} color="error"><ShoppingCartIcon /></Badge>
+            <Badge badgeContent={basketAmountNumber} color="error"><ShoppingCartIcon /></Badge>
           </IconButton>
         </Toolbar>
       </AppBar>

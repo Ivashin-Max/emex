@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Basket from './components/pages/Basket';
+import Basket from './components/pages/BasketPage';
 import HomePage from './components/pages/UserPage';
 import RolePage from './components/pages/RolePage';
 import AdminPage from './components/pages/AdminPage';

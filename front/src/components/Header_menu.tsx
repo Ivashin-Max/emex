@@ -2,10 +2,13 @@ import * as React from 'react';
 import { List, ListItemButton, ListItemIcon, ListItemText, Collapse } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { Link } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+
+import { Link } from 'react-router-dom';
+
 import { HeaderMenuProps } from '../types/props';
+
 
 export default function HeaderMenu(props: HeaderMenuProps) {
   const [open, setOpen] = React.useState(false);
@@ -18,7 +21,6 @@ export default function HeaderMenu(props: HeaderMenuProps) {
     <List
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
       component="nav"
-      aria-labelledby="nested-list-subheader"
     >
       <ListItemButton
         component={Link}

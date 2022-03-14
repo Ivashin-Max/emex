@@ -1,3 +1,4 @@
+
 export interface FetchItems {
   findExactAmountTyped: Item[];
 }
@@ -5,11 +6,6 @@ export interface FetchItems {
 export interface FetchItem {
   findOne: Item;
 }
-
-export interface CreatedItem {
-  createItem: Item;
-}
-
 
 export type Item = {
   amount: number

@@ -1,13 +1,6 @@
-
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import '../../styles/role_page.css';
-import admin from '../../static/img/admin.jpg';
-import user from '../../static/img/user.jpg';
 
 export default function RolePage() {
   return (

@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+
 import { useTypedSelector } from '../hook/useTypedSelector';
 import UPDATE_MULTPLE_ITEMS from '../queries/UPDATE_MULTIPLE_ITEMS';
-import { useMutation } from '@apollo/client';
 import { UpdateBasketItem } from '../types/basket'
 import SnackbarOpen from './Snackbar';
+
+import { useMutation } from '@apollo/client';
 
 
 export default function Modal() {

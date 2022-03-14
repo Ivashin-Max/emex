@@ -12,7 +12,7 @@ const Search = () => {
 
 
 
-  const { loading, error, data } = useQuery<FetchItem>(GET_ONE_BY_ID, { variables: { id: +searchId } });
+  const { error, data } = useQuery<FetchItem>(GET_ONE_BY_ID, { variables: { id: +searchId } });
 
   const item = [];
   if (data) {

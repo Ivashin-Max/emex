@@ -17,7 +17,7 @@ import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import { Box, Paper, Grid, Card, CardMedia, Typography, Divider, IconButton, Container } from '@mui/material';
 
 
-export default function BasicGrid() {
+export default function ItemPage() {
   let location = useLocation();
   const currentItem = location.search.split('=')[1];
   const { loading, error, data } = useQuery<FetchItem>(GET_ONE_BY_ID, { variables: { id: +currentItem } });
@@ -44,12 +44,13 @@ export default function BasicGrid() {
     <Container sx={{ py: 1 }} maxWidth="lg">
       <h1>Товара с таким id не существует</h1>
     </Container>
-
   )
+
+
   return (
     <>
 
-      <Typography sx={{ ml: 5, mt: 3 }} gutterBottom variant="h5" component="div">
+      <Typography sx={{ ml: 5, mt: 3, textAlign: { xs: 'center', md: 'start' } }} gutterBottom variant="h5" component="div">
         Страница товара
       </Typography>
       {data &&

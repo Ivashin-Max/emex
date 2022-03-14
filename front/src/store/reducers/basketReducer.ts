@@ -14,6 +14,7 @@ const changeBasketAmount = (state: BasketState, id: string, operation: string): 
       break
     }
   }
+
   const newArray = [...state.items];
   if (operation === '+') newArray[index].basketAmount = newArray[index].basketAmount + 1;
   if (operation === '-') {

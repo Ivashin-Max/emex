@@ -4,7 +4,7 @@ import EditItemMain from '../EditItemSteper';
 import AddItem from '../AddItem';
 
 
-export default function SignIn() {
+export default function AdminPage() {
 
   return (
     <Container component="main" maxWidth="lg">

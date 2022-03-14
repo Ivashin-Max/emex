@@ -6,10 +6,10 @@ import { CircularProgress, Typography, Backdrop, Container, Grid, Button } from 
 
 import { useLocation } from "react-router-dom";
 
-import { FetchItems } from '../../types/queries'
+import { FetchItems, Item } from '../../types/queries'
 import EXACT_AMOUNT_TYPED from '../../queries/EXACT_AMOUNT_TYPED';
 import MultiActionAreaCard from '../ItemCard'
-import { BasketItem } from '../../types/basket';
+
 
 
 
@@ -26,13 +26,9 @@ const CatalogPage = () => {
     if (data) setLoader(false)
   }, [loading, data])
 
-  let fetchMapping = null;
   let empty = true;
   if (data) {
-    fetchMapping = Object.values(data)[0];
-    if (data.findExactAmountTyped.length > 0) {
-      empty = false;
-    }
+    if (data.findExactAmountTyped.length > 0) empty = false
   }
 
   let catalogName = '';
@@ -72,7 +68,7 @@ const CatalogPage = () => {
           Каталог {catalogName}{data && empty && ', к сожалению, пуст'}
         </Typography>
         <Grid container spacing={10}>
-          {data && fetchMapping.map((item: BasketItem) => (
+          {data && data.findExactAmountTyped.map((item: Item) => (
             <Grid item xs={12} sm={6} md={3} key={item.id} >
               <MultiActionAreaCard item={item} img={currentCatalog} />
             </Grid>

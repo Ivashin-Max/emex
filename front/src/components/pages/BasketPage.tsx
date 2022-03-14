@@ -1,5 +1,5 @@
 
-import { TableBody, TableFooter, Table, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
+import { TableBody, Table, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 
 import { useTypedSelector } from '../../hook/useTypedSelector';
 import { RUB_CHAR } from '../../types/items';
@@ -8,14 +8,11 @@ import BasketChange from '../BasketChange';
 
 
 
-export default function Basket() {
+export default function BasketPage() {
   const basketItems = useTypedSelector(state => state.basket.items)
   const basketAmount = useTypedSelector(state => state.basket.basketAmount)
   const basketTotalPrice =
-    basketItems
-      .reduce(
-        (accumulator, currentValue) => accumulator + (currentValue.price * currentValue.basketAmount), 0
-      );
+    basketItems.reduce((accumulator, currentValue) => accumulator + (currentValue.price * currentValue.basketAmount), 0);
 
 
 
@@ -31,7 +28,7 @@ export default function Basket() {
           <>, к сожалению, пуста</>}
       </Typography>
       {basketItems.length > 0 &&
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
               <TableCell>Товар</TableCell>
