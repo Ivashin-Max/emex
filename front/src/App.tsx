@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Basket from './components/pages/Basket';
-import HomePage from './components/pages/HomePage';
+import HomePage from './components/pages/UserPage';
 import RolePage from './components/pages/RolePage';
 import AdminPage from './components/pages/AdminPage';
 import NotFound from './components/pages/NotFound';
@@ -9,6 +9,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Catalog from './components/pages/Catalog';
 import ItemPage from './components/pages/ItemPage';
 import Search from './components/pages/Search';
+import Box from '@mui/material/Box';
+import './styles/admin_page.css'
 
 function App() {
   return (
@@ -27,7 +29,6 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-
 
     </div>
   );

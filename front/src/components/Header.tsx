@@ -59,6 +59,9 @@ export default function SearchAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleSubmenuClick = () => {
+    handleClose();
+  }
 
 
   const state = useTypedSelector(state => state.basket)
@@ -99,28 +102,7 @@ export default function SearchAppBar() {
 
             }}
           >
-            <MenuItem
-              onClick={handleClose}
-              component={Link}
-              to='/catalog?name=tyre'
-            >
-              Шины
-
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              component={Link}
-              to='/catalog?name=disk'
-            >
-              Диски
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              component={Link}
-              to='/catalog?name=oil'
-            >
-              Масла
-            </MenuItem>
+            <HeaderMenu onClick={handleSubmenuClick} />
           </Menu>
 
           <Search sx={{ flexGrow: 1 }}>

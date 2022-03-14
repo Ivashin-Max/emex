@@ -15,6 +15,14 @@ export class ItemsService {
     return await this.itemRepo.save(createItemInput)
   }
 
+  async updateOne(updateItemInput: UpdateItemInput) {
+    await this.itemRepo.update(
+      { id: updateItemInput.id },
+      { ...updateItemInput },
+    );
+    return await this.findOne(updateItemInput.id);
+  }
+
   async findAll() {
     return await this.itemRepo.find();
   }
@@ -31,6 +39,15 @@ export class ItemsService {
     return await this.itemRepo.find({ where: { itemtype: type } });
   }
 
+  async findIds(ids: UpdateItemInput[]) {
+    const neededItems = [];
+    for (let i = 0; i < ids.length; i++) {
+      const element = await this.itemRepo.findOne(ids[i].id);
+      neededItems.push(element);
+    }
+    return neededItems;
+  }
+
   async getExactAmountTyped(amount: number, type: string) {
     return await this.itemRepo.find({
       take: amount,
@@ -38,17 +55,11 @@ export class ItemsService {
     });
   }
 
-  async updateOne(updateItemInput: UpdateItemInput) {
-    await this.itemRepo.update(
-      { id: updateItemInput.id },
-      { ...updateItemInput },
-    );
-    return await this.findOne(updateItemInput.id);
-  }
-  async updateMultiple(updateItemInput: [UpdateItemInput]) {
+  async updateMultiple(updateItemInput: UpdateItemInput[]) {
     for (let i = 0; i < updateItemInput.length; i++) {
       const element = updateItemInput[i];
       await this.updateOne(element);
     }
+    return await this.findIds(updateItemInput);
   }
 }

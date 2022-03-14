@@ -1,17 +1,8 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
-import Paper from '@mui/material/Paper';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
@@ -41,15 +32,15 @@ export default function EditItemMain(props: any) {
   return (
     <>
       <Container
-        component="main"
-        maxWidth="sm"
         sx={{
-          mb: 4,
+          ml: 0,
+          mr: 0,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           p: 2,
-          maxWidth: 350
+          width: "auto",
+
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -61,7 +52,8 @@ export default function EditItemMain(props: any) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            maxWidth: 350
+            maxWidth: 350,
+            width: "100%"
           }}
         >
 
@@ -76,7 +68,7 @@ export default function EditItemMain(props: any) {
           />}
           {activeStep === 1 && <AddItem edit={true} editId={+editId} />}
           {activeStep === 1 &&
-            <Button variant="contained" onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+            <Button variant="contained" onClick={handleBack} sx={{ m: 1 }}>
               Назад
             </Button>
           }
@@ -92,16 +84,6 @@ export default function EditItemMain(props: any) {
 
 
         </Box>
-
-        {/* <React.Fragment>
-          <Typography variant="h5" gutterBottom sx={{ mt: 2 }}>
-            Товар отредактирован
-          </Typography>
-          <Typography variant="subtitle1">
-            В базу данных отправлен запрос на редактирование товара
-          </Typography>
-        </React.Fragment> */}
-
 
 
       </Container>

@@ -5,16 +5,11 @@ import App from './App';
 import { Provider } from "react-redux";
 import { store } from './store';
 import { BrowserRouter } from 'react-router-dom';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, } from "@apollo/client";
+import url from './static/url.json'
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql',
+  uri: url.gqlUrl,
   cache: new InMemoryCache(),
 });
 

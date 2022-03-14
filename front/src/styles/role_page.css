@@ -1,0 +1,58 @@
+.largeSizeImg {
+  width: 50vw;
+  height: 100vh;
+  transition: 1s;
+}
+.smallSizeImg {
+  width: 100vw;
+  height: 100vh;
+  transition: 1s;
+}
+.container {
+  display: flex;
+}
+.container__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container__item:hover .admin {
+  filter: brightness(60%);
+}
+.container__item:hover .user {
+  filter: brightness(60%);
+}
+.container__item .text {
+  position: absolute;
+}
+.user {
+  width: 50vw;
+  height: 100vh;
+  transition: 1s;
+  background: url('../static//img/user.jpg') 0 0 / cover no-repeat;
+}
+.admin {
+  width: 50vw;
+  height: 100vh;
+  transition: 1s;
+  background: url('../static//img/admin.jpg') 0 0 / cover no-repeat;
+}
+@media (max-width: 1000px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .user {
+    width: 100vw;
+    height: 100vh;
+    transition: 1s;
+  }
+  .admin {
+    width: 100vw;
+    height: 100vh;
+    transition: 1s;
+  }
+}
+:link {
+  text-decoration: none;
+}

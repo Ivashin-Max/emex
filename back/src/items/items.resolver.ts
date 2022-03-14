@@ -13,6 +13,26 @@ export class ItemsResolver {
     return await this.itemsService.create(createItemInput);
   }
 
+  @Mutation(() => Item)
+  async updateItem(@Args('updateItemInput') updateItemInput: UpdateItemInput) {
+    return await this.itemsService.updateOne(updateItemInput);
+  }
+
+  @Mutation(() => [Item], { name: 'updateMultipleItems' })
+  updateMultipleItems(
+    @Args({ name: 'updateItemsArr', type: () => [UpdateItemInput] })
+    updateItemInput: UpdateItemInput[],
+  ) {
+    return this.itemsService.updateMultiple(updateItemInput);
+  }
+
+  @Query(() => [Item], { name: 'IDS' })
+  findIds(
+    @Args('id', { type: () => [UpdateItemInput] }) ids: UpdateItemInput[],
+  ) {
+    return this.itemsService.findIds(ids);
+  }
+
   @Query(() => [Item], { name: 'items' })
   findAll() {
     return this.itemsService.findAll();
@@ -35,17 +55,4 @@ export class ItemsResolver {
   ) {
     return this.itemsService.getExactAmountTyped(amount, type);
   }
-
-  @Mutation(() => Item, { name: 'updateOneItem' })
-  updateItem(@Args('updateItemInput') updateItemInput: UpdateItemInput) {
-    return this.itemsService.updateOne(updateItemInput);
-  }
-
-  @Mutation(() => Item, { name: 'updateMultipleItems' })
-  updateMultipleItems(
-    @Args('updateItemsInput') updateItemInput: UpdateItemInput,
-  ) {
-    // return this.itemsService.updateMultiple(updateItemInput);
-  }
-
 }

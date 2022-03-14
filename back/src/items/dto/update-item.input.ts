@@ -6,4 +6,15 @@ export class UpdateItemInput {
   id: number;
   @Field()
   amount: number;
+  @Field({ nullable: true })
+  price: number;
+  @Field({ nullable: true })
+  brand: string;
+  @Field({ nullable: true })
+  name: string;
+  @Field({ nullable: true })
+  special: string;
+  @Field({ nullable: true })
+  itemtype: string;
 }
+

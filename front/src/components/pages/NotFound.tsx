@@ -1,9 +1,4 @@
-
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { Stack, Button, Box, Typography, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export default function NotFound() {
@@ -12,7 +7,6 @@ export default function NotFound() {
     <main>
       <Box
         sx={{
-          bgcolor: 'background.paper',
           pt: 8,
           pb: 6,
         }}

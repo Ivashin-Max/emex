@@ -1,40 +1,47 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import { useLazyQuery, useQuery } from '@apollo/client';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Select, SelectChangeEvent, Avatar, Button, Box, Typography, Divider, InputLabel, MenuItem, FormControl, TextField } from '@mui/material';
+import { useQuery, useMutation } from '@apollo/client';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import Divider from '@mui/material/Divider';
 import { AddItemProps } from '../types/props';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { IItem } from '../types/items';
 import CREATE_ITEM from '../queries/CREATE_ITEM';
-import { useMutation } from '@apollo/client';
-import { useForm, Controller } from "react-hook-form";
-import Input from "@mui/material/Input";
 import GET_ONE_BY_ID from '../queries/GET_ONE_BY_ID';
 import { FetchItem } from '../types/queries';
-import { IItemType } from '../types/useStateTypes';
 import UPDATE_ITEM from '../queries/UPDATE_ITEM';
-import { IItem } from '../types/items';
+
+import SnackbarOpen from './Snackbar';
+import EXACT_AMOUNT_TYPED from '../queries/EXACT_AMOUNT_TYPED';
 
 export default function AddItem(props: AddItemProps) {
-
-  const [handleCreate, { data: createData }] = useMutation(CREATE_ITEM)
-  const [handleUpdate, { data: updateData }] = useMutation(UPDATE_ITEM)
-  const { loading, error, data: editData } = useQuery<FetchItem>(GET_ONE_BY_ID, { variables: { id: props.editId }, skip: !props.edit });
-
   const [type, setType] = React.useState('');
   const [brand, setBrand] = React.useState('');
   const [name, setName] = React.useState('');
   const [amount, setAmount] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [special, setSpecial] = React.useState('');
+  const [snackMsg, setSnackMsg] = React.useState('');
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+
+  const [handleCreate, { data: createData }] = useMutation(CREATE_ITEM,
+    {
+      refetchQueries: [{
+        query: EXACT_AMOUNT_TYPED,
+        variables: { amount: 3, type: type }
+      }]
+    })
+  const [handleUpdate, { data: updateData }] = useMutation(UPDATE_ITEM,
+    {
+      refetchQueries: [{
+        query: EXACT_AMOUNT_TYPED,
+        variables: { amount: 3, type: type }
+      }]
+    })
+  const { loading, error, data: editData } = useQuery<FetchItem>(GET_ONE_BY_ID,
+    { variables: { id: props.editId }, skip: !props.edit });
+
   const isEnabled = type && brand && name && amount && price && special;
+  const paddingEdit = props.edit ? 0 : 2;
+
   React.useEffect(() => {
     if (editData) {
       setType(editData.findOne.itemtype)
@@ -45,7 +52,23 @@ export default function AddItem(props: AddItemProps) {
       setSpecial(editData.findOne.special)
     }
 
-  }, [editData])
+    if (createData) {
+      setSnackMsg('Товар успешно добавлен!')
+      setSnackbarOpen(true)
+    }
+
+    if (updateData) {
+      console.log(1111)
+      setSnackMsg('Товар успешно отредактирован!')
+      setSnackbarOpen(true)
+    }
+
+  }, [createData, editData, updateData])
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false)
+  }
+
 
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -63,14 +86,27 @@ export default function AddItem(props: AddItemProps) {
       newItem.id = props.editId
       handleUpdate({ variables: { item: newItem } })
     }
-    else handleCreate({ variables: { item: newItem } })
+    else {
+      handleCreate({ variables: { item: newItem } })
+      clearInputs()
+    }
   };
 
+  const clearInputs = () => {
+    setType('')
+    setBrand('')
+    setName('')
+    setAmount('')
+    setPrice('')
+    setSpecial('')
+  }
 
 
   const handleChange = (event: SelectChangeEvent) => {
     setType(event.target.value as string);
   };
+
+
 
   return (
     <>
@@ -79,8 +115,9 @@ export default function AddItem(props: AddItemProps) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          p: 2,
-          maxWidth: 350
+          p: paddingEdit,
+          maxWidth: 350,
+          pr: 3
         }}
         component="form"
         autoComplete='off'
@@ -92,13 +129,14 @@ export default function AddItem(props: AddItemProps) {
               <AddCircleIcon />
             </Avatar>
 
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" textAlign='center'>
               Добавление товара в базу
             </Typography>
           </>
         }
 
-        {!error && !loading && !updateData && <Box>
+
+        {!error && !loading && <Box>
           <TextField
             margin="normal"
             required
@@ -168,24 +206,16 @@ export default function AddItem(props: AddItemProps) {
               </Select>
             </FormControl>
           </Box>
-          {!props.edit && <Button
+          <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             disabled={!isEnabled}
           >
-            Добавить товар
-          </Button>}
-          {props.edit && <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            disabled={!isEnabled}
-          >
-            Редактировать товар
-          </Button>}
+            {!props.edit ? <span>Добавить товар</span> : <span>Редактировать товар</span>}
+          </Button>
+          <SnackbarOpen open={snackbarOpen} message={snackMsg} onClose={handleSnackbarClose} />
           <Divider orientation="vertical" flexItem />
         </Box>}
 
@@ -195,17 +225,7 @@ export default function AddItem(props: AddItemProps) {
               Ошибка!
             </Typography>
             <Typography variant="subtitle1">
-              {error.message}
-            </Typography>
-          </>
-        }
-        {updateData &&
-          <>
-            <Typography variant="h5" gutterBottom sx={{ mt: 2 }} alignItems="center">
-              Успешно!
-            </Typography>
-            <Typography variant="subtitle1">
-              Товар  отредактирован
+              Товара с таким id не существует
             </Typography>
           </>
         }

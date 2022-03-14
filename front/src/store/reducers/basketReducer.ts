@@ -43,6 +43,13 @@ export const basketReducer = (state = initialState, action: BasketAction): Baske
         items: state.items.filter((item) => item.id !== action.payload.id),
         basketAmount: state.basketAmount - action.payload.basketAmount
       }
+
+    case BasketActionTypes.CLEAR_BASKET:
+      return {
+        ...state,
+        items: [],
+        basketAmount: 0
+      }
     default:
       return state
   }

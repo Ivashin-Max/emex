@@ -15,16 +15,27 @@ type items {
 }
 
 type Query {
+  IDS(id: [UpdateItemInput!]!): [items!]!
   items: [items!]!
   findOne(id: Int!): items!
   findAllTyped(type: String!): [items!]!
   findExactAmountTyped(type: String!, amount: Float!): [items!]!
 }
 
+input UpdateItemInput {
+  id: Float!
+  amount: Float!
+  price: Float
+  brand: String
+  name: String
+  special: String
+  itemtype: String
+}
+
 type Mutation {
   createItem(createItemInput: CreateItemInput!): items!
-  updateOneItem(updateItemInput: UpdateItemInput!): items!
-  updateMultipleItems(updateItemsInput: UpdateItemInput!): items!
+  updateItem(updateItemInput: UpdateItemInput!): items!
+  updateMultipleItems(updateItemsArr: [UpdateItemInput!]!): [items!]!
 }
 
 input CreateItemInput {
@@ -34,9 +45,4 @@ input CreateItemInput {
   name: String!
   special: String!
   itemtype: String!
-}
-
-input UpdateItemInput {
-  id: Float!
-  amount: Float!
 }

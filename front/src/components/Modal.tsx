@@ -1,12 +1,11 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
+import { useTypedSelector } from '../hook/useTypedSelector';
+import UPDATE_MULTPLE_ITEMS from '../queries/UPDATE_MULTIPLE_ITEMS';
+import { useMutation } from '@apollo/client';
+import { UpdateBasketItem } from '../types/basket'
+import SnackbarOpen from './Snackbar';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -19,15 +18,54 @@ const Transition = React.forwardRef(function Transition(
 
 export default function Modal() {
   const [open, setOpen] = React.useState(false);
+  const state = useTypedSelector(state => state.basket);
+  const [snackMsg, setSnackMsg] = React.useState('');
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [handleUpdate, { data: updateData }] = useMutation(UPDATE_MULTPLE_ITEMS)
+
+
+  React.useEffect(() => {
+    if (updateData) {
+      console.log(updateData)
+      setSnackMsg('Заказ успешно оформлен!')
+      setSnackbarOpen(true);
+
+
+    }
+
+  }, [updateData])
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false)
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
 
+  const handleOffer = () => {
+
+    console.log(state)
+    const newAmountArr = state.items.map((item) => {
+      const newItem: UpdateBasketItem = {
+        amount: item.amount - item.basketAmount,
+        id: +item.id
+      }
+      return newItem
+    })
+
+    handleUpdate({ variables: { arr: newAmountArr } })
+    setOpen(false);
+  };
+
+
+  if (updateData) console.log(updateData)
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -43,14 +81,15 @@ export default function Modal() {
         <DialogTitle>{"Оформить заказ?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Оформить заказ
+            Оформление заказа приведет к изменению его количества на складе
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Оформить</Button>
+          <Button onClick={handleOffer}>Оформить</Button>
           <Button onClick={handleClose}>Отказаться</Button>
         </DialogActions>
       </Dialog>
+      <SnackbarOpen open={snackbarOpen} message={snackMsg} onClose={handleSnackbarClose} />
     </div>
   );
 }
