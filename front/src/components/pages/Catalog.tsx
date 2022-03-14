@@ -1,15 +1,19 @@
 import { useQuery } from '@apollo/client';
 import * as React from 'react';
-import MultiActionAreaCard from '../ItemCard'
-import { BasketItem } from '../../types/basket';
+
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import { useLocation } from "react-router-dom";
-import { FetchItems } from '../../types/queries'
-import EXACT_AMOUNT_TYPED from '../../queries/EXACT_AMOUNT_TYPED';
 import { CircularProgress, Typography, Backdrop, Container, Grid, Button } from '@mui/material';
 
+import { useLocation } from "react-router-dom";
 
-const Catalog = () => {
+import { FetchItems } from '../../types/queries'
+import EXACT_AMOUNT_TYPED from '../../queries/EXACT_AMOUNT_TYPED';
+import MultiActionAreaCard from '../ItemCard'
+import { BasketItem } from '../../types/basket';
+
+
+
+const CatalogPage = () => {
   let location = useLocation();
   const currentCatalog = location.search.split('=')[1];
   const [currentAmount, setCurrentAmount] = React.useState(4)
@@ -18,8 +22,6 @@ const Catalog = () => {
     { variables: { amount: currentAmount, type: currentCatalog } });
 
   React.useEffect(() => {
-    let q: (string | number)[] = ['1'];
-    q.push(1);
     if (loading) setLoader(true)
     if (data) setLoader(false)
   }, [loading, data])
@@ -102,4 +104,4 @@ const Catalog = () => {
   )
 }
 
-export default Catalog
+export default CatalogPage
