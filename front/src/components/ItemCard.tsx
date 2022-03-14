@@ -6,8 +6,9 @@ import { changeBasket } from '../store/actions/changeBasket';
 import { Link } from 'react-router-dom';
 import { RUB_CHAR } from '../types/items';
 import SnackbarOpen from './Snackbar';
+import { MultiActionAreaCardProps } from '../types/props';
 
-export default function MultiActionAreaCard(props: any) {
+export default function MultiActionAreaCard(props: MultiActionAreaCardProps) {
 
   const dispatch = useDispatch();
   const linkToProduct = `/product?id=${props.item.id}`;

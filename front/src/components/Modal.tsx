@@ -26,7 +26,6 @@ export default function Modal() {
 
   React.useEffect(() => {
     if (updateData) {
-      console.log(updateData)
       setSnackMsg('Заказ успешно оформлен!')
       setSnackbarOpen(true);
 
@@ -50,8 +49,6 @@ export default function Modal() {
   };
 
   const handleOffer = () => {
-
-    console.log(state)
     const newAmountArr = state.items.map((item) => {
       const newItem: UpdateBasketItem = {
         amount: item.amount - item.basketAmount,
@@ -65,7 +62,6 @@ export default function Modal() {
   };
 
 
-  if (updateData) console.log(updateData)
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>

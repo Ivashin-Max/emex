@@ -5,8 +5,9 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import { HeaderMenuProps } from '../types/props';
 
-export default function HeaderMenu(props: any) {
+export default function HeaderMenu(props: HeaderMenuProps) {
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {

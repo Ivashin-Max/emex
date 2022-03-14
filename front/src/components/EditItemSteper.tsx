@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 
 
 
-export default function EditItemMain(props: any) {
+export default function EditItemMain() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [editId, setEditId] = React.useState("");
 

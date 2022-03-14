@@ -56,9 +56,7 @@ const Catalog = () => {
 
 
   const handleMoreClick = () => {
-    console.log('currentAmount', currentAmount);
     setCurrentAmount(currentAmount + 4);
-    console.log('nextAmount', currentAmount);
   }
 
   if (error) return (

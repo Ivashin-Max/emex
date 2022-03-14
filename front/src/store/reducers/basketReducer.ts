@@ -31,7 +31,7 @@ export const basketReducer = (state = initialState, action: BasketAction): Baske
         basketAmount: state.basketAmount + 1,
       }
     case BasketActionTypes.CHANGE_AMOUNT:
-      // console.log(`CHANGE_AMOUNT, operation: ${action.payload.operation}`);
+
       return {
         ...state,
         items: changeBasketAmount(state, action.payload.id, action.payload.operation),

@@ -58,7 +58,6 @@ export default function AddItem(props: AddItemProps) {
     }
 
     if (updateData) {
-      console.log(1111)
       setSnackMsg('Товар успешно отредактирован!')
       setSnackbarOpen(true)
     }
