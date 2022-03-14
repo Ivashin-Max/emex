@@ -1,26 +1,19 @@
 import * as React from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
-import { TransitionProps } from '@mui/material/transitions';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { useTypedSelector } from '../hook/useTypedSelector';
 import UPDATE_MULTPLE_ITEMS from '../queries/UPDATE_MULTIPLE_ITEMS';
 import { useMutation } from '@apollo/client';
 import { UpdateBasketItem } from '../types/basket'
 import SnackbarOpen from './Snackbar';
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement<any, any>;
-  },
-  ref: React.Ref<unknown>,
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 export default function Modal() {
-  const [open, setOpen] = React.useState(false);
   const state = useTypedSelector(state => state.basket);
+
+  const [modalOpen, setModalOpen] = React.useState(false);
   const [snackMsg, setSnackMsg] = React.useState('');
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+
   const [handleUpdate, { data: updateData }] = useMutation(UPDATE_MULTPLE_ITEMS)
 
 
@@ -28,16 +21,11 @@ export default function Modal() {
     if (updateData) {
       setSnackMsg('Заказ успешно оформлен!')
       setSnackbarOpen(true);
-
-
     }
-
   }, [updateData])
 
-
-
   const handleClickOpen = () => {
-    setOpen(true);
+    setModalOpen(true);
   };
 
   const handleSnackbarClose = () => {
@@ -45,7 +33,7 @@ export default function Modal() {
   }
 
   const handleClose = () => {
-    setOpen(false);
+    setModalOpen(false);
   };
 
   const handleOffer = () => {
@@ -58,7 +46,7 @@ export default function Modal() {
     })
 
     handleUpdate({ variables: { arr: newAmountArr } })
-    setOpen(false);
+    setModalOpen(false);
   };
 
 
@@ -68,8 +56,7 @@ export default function Modal() {
         Оформить заказ
       </Button>
       <Dialog
-        open={open}
-        TransitionComponent={Transition}
+        open={modalOpen}
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
