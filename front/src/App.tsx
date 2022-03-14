@@ -9,7 +9,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Catalog from './components/pages/Catalog';
 import ItemPage from './components/pages/ItemPage';
 import Search from './components/pages/Search';
-import Box from '@mui/material/Box';
 import './styles/admin_page.css'
 
 function App() {

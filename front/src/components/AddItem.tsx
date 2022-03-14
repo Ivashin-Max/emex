@@ -1,16 +1,23 @@
 import * as React from 'react';
-import { Select, SelectChangeEvent, Avatar, Button, Box, Typography, Divider, InputLabel, MenuItem, FormControl, TextField } from '@mui/material';
-import { useQuery, useMutation } from '@apollo/client';
+import {
+  Select, SelectChangeEvent, Avatar, Button, Box, Typography,
+  Divider, InputLabel, MenuItem, FormControl, TextField
+} from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+
+import { useQuery, useMutation } from '@apollo/client';
+
 import { AddItemProps } from '../types/props';
 import { IItem } from '../types/items';
+import { FetchItem } from '../types/queries';
+
 import CREATE_ITEM from '../queries/CREATE_ITEM';
 import GET_ONE_BY_ID from '../queries/GET_ONE_BY_ID';
-import { FetchItem } from '../types/queries';
 import UPDATE_ITEM from '../queries/UPDATE_ITEM';
+import EXACT_AMOUNT_TYPED from '../queries/EXACT_AMOUNT_TYPED';
 
 import SnackbarOpen from './Snackbar';
-import EXACT_AMOUNT_TYPED from '../queries/EXACT_AMOUNT_TYPED';
+
 
 export default function AddItem(props: AddItemProps) {
   const [type, setType] = React.useState('');
@@ -26,20 +33,21 @@ export default function AddItem(props: AddItemProps) {
     {
       refetchQueries: [{
         query: EXACT_AMOUNT_TYPED,
-        variables: { amount: 3, type: type }
+        variables: { amount: 4, type: type }
       }]
     })
   const [handleUpdate, { data: updateData }] = useMutation(UPDATE_ITEM,
     {
       refetchQueries: [{
         query: EXACT_AMOUNT_TYPED,
-        variables: { amount: 3, type: type }
+        variables: { amount: 4, type: type }
       }]
     })
   const { loading, error, data: editData } = useQuery<FetchItem>(GET_ONE_BY_ID,
     { variables: { id: props.editId }, skip: !props.edit });
 
   const isEnabled = type && brand && name && amount && price && special;
+
   const paddingEdit = props.edit ? 0 : 2;
 
   React.useEffect(() => {
@@ -67,8 +75,6 @@ export default function AddItem(props: AddItemProps) {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false)
   }
-
-
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

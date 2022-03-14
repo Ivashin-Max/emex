@@ -1,17 +1,8 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-
-
+import { Box, Container, Button, Typography, Avatar, TextField } from '@mui/material';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
-import Avatar from '@mui/material/Avatar';
+
 import AddItem from './AddItem';
-import TextField from '@mui/material/TextField';
-
-
-
 
 
 export default function EditItemMain() {
@@ -40,7 +31,6 @@ export default function EditItemMain() {
           alignItems: 'center',
           p: 2,
           width: "auto",
-
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -57,34 +47,36 @@ export default function EditItemMain() {
           }}
         >
 
-          {activeStep === 0 && <TextField
-            margin="normal"
-            required
-            fullWidth
-            type="number"
-            value={editId}
-            onChange={e => setEditId(e.currentTarget.value)}
-            label="Id"
-          />}
-          {activeStep === 1 && <AddItem edit={true} editId={+editId} />}
-          {activeStep === 1 &&
-            <Button variant="contained" onClick={handleBack} sx={{ m: 1 }}>
-              Назад
-            </Button>
-          }
           {activeStep === 0 &&
-            <Button
-              variant="contained"
-              onClick={handleNext}
-              sx={{ mt: 3, ml: 1 }}
-              disabled={!isEnabled}
-            >
-              Выбрать товар
-            </Button>}
-
-
+            <>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                type="number"
+                value={editId}
+                onChange={e => setEditId(e.currentTarget.value)}
+                label="Id"
+              />
+              <Button
+                variant="contained"
+                onClick={handleNext}
+                sx={{ mt: 3, ml: 1 }}
+                disabled={!isEnabled}
+              >
+                Выбрать товар
+              </Button>
+            </>
+          }
+          {activeStep === 1 &&
+            <>
+              <AddItem edit={true} editId={+editId} />
+              <Button variant="contained" onClick={handleBack} sx={{ m: 1 }}>
+                Назад
+              </Button>
+            </>
+          }
         </Box>
-
 
       </Container>
     </>
