@@ -52,6 +52,7 @@ export class ItemsService {
     return await this.itemRepo.find({
       take: amount,
       where: { itemtype: type },
+      order: { id: 'ASC' },
     });
   }
 
