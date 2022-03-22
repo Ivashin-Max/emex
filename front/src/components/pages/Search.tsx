@@ -22,12 +22,15 @@ const Search = () => {
 
 
 
-  if (error) return (
+  if (error || data === null) return (
     <Container sx={{ py: 1 }} maxWidth="lg">
       <h1>Товара с таким id не существует</h1>
     </Container>
 
   )
+
+
+
   return (
     <>
       <Container sx={{ py: 8 }} maxWidth="lg">
